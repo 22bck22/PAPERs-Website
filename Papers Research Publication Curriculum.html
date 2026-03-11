@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Curriculum — PAPERS · Phillips Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #1a56a0;
+      --blue: #2e6fc4;
+      --mid-blue: #4a90d9;
+      --light-blue: #74b3f0;
+      --ice: #dbeeff;
+      --cream: #f0f6ff;
+      --paper: #f7faff;
+      --gold: #e8eef5;
+      --text: #0d2340;
+      --muted: #5a7aaa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Libre Baskerville', Georgia, serif; background: var(--paper); color: var(--text); overflow-x: hidden; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      border-bottom: 3px solid rgba(255,255,255,0.6);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 16px rgba(30,70,140,0.2);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 32px;
+    }
+    .logo-block { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+    .logo-seal {
+      width: 52px; height: 52px; border: 2px solid rgba(255,255,255,0.6); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+    }
+    .logo-seal span { font-family: 'IM Fell English', serif; color: #ffffff; font-size: 17px; font-style: italic; }
+    .logo-text .wordmark { font-family: 'IM Fell English', serif; font-size: 22px; letter-spacing: 4px; color: #fff; }
+    .logo-text .subtitle { font-size: 9px; letter-spacing: 2.5px; color: var(--ice); text-transform: uppercase; font-family: 'Source Code Pro', monospace; margin-top: 2px; }
+    nav { display: flex; gap: 6px; }
+    nav a {
+      color: var(--ice); text-decoration: none; font-family: 'Source Code Pro', monospace;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px;
+      border: 1px solid transparent; transition: all 0.2s;
+    }
+    nav a:hover, nav a.active { color: #fff; border-color: #ffffff; background: rgba(255,255,255,0.12); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--navy);
+      padding: 80px 32px 64px;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(74,144,217,0.3) 0%, transparent 60%),
+                  linear-gradient(170deg, #1a56a0 0%, #1a4a8a 100%);
+    }
+    /* Decorative rule lines */
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; display: flex; justify-content: space-between; align-items: flex-end; }
+    .page-eyebrow {
+      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 4px;
+      color: #ffffff; text-transform: uppercase; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .page-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.15); }
+    .page-hero h1 {
+      font-family: 'IM Fell English', serif; font-size: clamp(36px, 5vw, 64px);
+      color: #fff; margin-bottom: 16px; font-style: italic;
+    }
+    .page-hero p { font-size: 15px; color: var(--ice); opacity: 0.75; max-width: 560px; line-height: 1.8; }
+    .hero-right { text-align: right; flex-shrink: 0; }
+    .hero-right .term-badge {
+      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase; padding: 6px 14px; border: 1px solid rgba(255,255,255,0.5);
+      color: #ffffff; display: inline-block; margin-bottom: 8px;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section { padding: 96px 32px; background: var(--paper); }
+    .timeline-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 4px;
+      text-transform: uppercase; color: #ffffff;
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent); max-width: 80px; }
+    .section-title { font-family: 'IM Fell English', serif; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; margin-bottom: 64px; }
+
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 120px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--navy), var(--mid-blue), var(--navy));
+    }
+
+    .term-block {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0 64px;
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .term-label-col { text-align: right; padding-top: 8px; }
+    .term-number {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+      display: block; margin-bottom: 4px;
+    }
+    .term-name {
+      font-family: 'IM Fell English', serif;
+      font-size: 18px; color: var(--navy); font-style: italic;
+      line-height: 1.2;
+    }
+
+    .term-dot {
+      position: absolute;
+      left: 112px; top: 14px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid rgba(255,255,255,0.6);
+      z-index: 1;
+    }
+
+    .term-content {
+      background: #ffffff;
+      border: 1px solid #e0d8cc;
+      border-top: 3px solid var(--navy);
+      padding: 40px 48px;
+      position: relative;
+    }
+
+    .term-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 28px; padding-bottom: 20px;
+      border-bottom: 1px solid #e0d8cc;
+    }
+    .term-title-area {}
+    .term-subtitle {
+      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase; color: #ffffff; margin-bottom: 8px;
+    }
+    .term-full-title {
+      font-family: 'IM Fell English', serif; font-size: 28px; color: var(--navy); font-style: italic;
+    }
+    .term-badge-inline {
+      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2px;
+      text-transform: uppercase; padding: 4px 10px; border: 1px solid rgba(255,255,255,0.3);
+      color: var(--blue); background: rgba(255,255,255,0.06); flex-shrink: 0; margin-top: 4px;
+    }
+
+    .term-description {
+      font-size: 15px; line-height: 1.9; color: #2a2a3e; margin-bottom: 32px;
+    }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+    .skill-card {
+      background: var(--paper); border: 1px solid #e0d8cc; padding: 16px 18px;
+    }
+    .skill-icon { font-size: 18px; margin-bottom: 8px; }
+    .skill-name {
+      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--navy); margin-bottom: 6px;
+    }
+    .skill-desc { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+    .deliverables-list { margin-top: 20px; }
+    .deliverables-label {
+      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    }
+    .deliverable {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid #f0eae0; font-size: 13px; color: var(--text);
+      line-height: 1.6;
+    }
+    .deliverable:last-child { border-bottom: none; }
+    .deliverable-check {
+      width: 18px; height: 18px; border: 1.5px solid var(--blue);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .deliverable-check::after { content: '✓'; font-size: 10px; color: var(--blue); }
+
+    /* ── PHILOSOPHY SECTION ── */
+    .philosophy-section {
+      background: var(--navy);
+      padding: 96px 32px;
+      position: relative; overflow: hidden;
+    }
+    .philosophy-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(74,144,217,0.25) 0%, transparent 60%);
+    }
+    .philosophy-inner { max-width: 1200px; margin: 0 auto; position: relative; }
+    .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 48px; background: rgba(116,179,240,0.1); }
+    .philosophy-card {
+      background: var(--navy); padding: 40px 36px;
+      border-top: 2px solid transparent; transition: border-color 0.3s;
+    }
+    .philosophy-card:hover { border-color: #ffffff; }
+    .philo-num {
+      font-family: 'IM Fell English', serif; font-size: 48px; color: rgba(116,179,240,0.3);
+      line-height: 1; margin-bottom: 16px;
+    }
+    .philo-title { font-family: 'IM Fell English', serif; font-size: 22px; color: #fff; font-style: italic; margin-bottom: 14px; }
+    .philo-text { font-size: 13px; color: var(--ice); opacity: 0.7; line-height: 1.8; }
+
+    /* ── CHAPTERS SECTION ── */
+    .chapters-section { padding: 96px 32px; background: var(--cream); }
+    .chapters-inner { max-width: 1200px; margin: 0 auto; }
+    .chapter-callout {
+      background: #ffffff; border: 1px solid #ddd; border-left: 4px solid #c8d8f0;
+      padding: 40px 48px;
+      display: flex; gap: 48px; align-items: flex-start;
+    }
+    .chapter-callout-icon { font-size: 48px; flex-shrink: 0; }
+    .chapter-callout h3 { font-family: 'IM Fell English', serif; font-size: 28px; font-style: italic; color: var(--navy); margin-bottom: 12px; }
+    .chapter-callout p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .btn-chapter {
+      display: inline-block; padding: 12px 24px;
+      background: var(--navy); color: #fff;
+      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-chapter:hover { background: var(--blue); }
+
+    .chapter-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+      margin-top: 40px; background: #e0d8cc;
+    }
+    .chapter-step {
+      background: #ffffff; padding: 28px 24px;
+    }
+    .step-num {
+      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 3px;
+      color: #ffffff; margin-bottom: 10px; text-transform: uppercase;
+    }
+    .step-title {
+      font-family: 'IM Fell English', serif; font-size: 16px; font-style: italic;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    .step-desc { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+    footer {
+      background: #0d2a5e; border-top: 1px solid rgba(116,179,240,0.2);
+      padding: 48px 32px; color: var(--muted);
+      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 1.5px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    footer a { color: var(--ice); text-decoration: none; }
+    footer a:hover { color: #ffffff; }
+
+    @media (max-width: 900px) {
+      .skills-grid, .philosophy-grid, .chapter-steps { grid-template-columns: 1fr; }
+      .chapter-callout { flex-direction: column; gap: 20px; }
+      .timeline::before { left: 0; }
+      .term-block { grid-template-columns: 1fr; padding-left: 24px; }
+      .term-label-col { text-align: left; }
+      .term-dot { left: -9px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-block">
+      <div class="logo-seal"><span>P</span></div>
+      <div class="logo-text">
+        <div class="wordmark">PAPERS</div>
+        <div class="subtitle">Phillips Academy · Est. 2024</div>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="journal.html">Journal</a>
+      <a href="curriculum.html" class="active">Curriculum</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="page-eyebrow">Academic Program</div>
+      <h1>The PAPERS Curriculum</h1>
+      <p>A year-long research framework spanning three academic terms — from formulating your first question to submitting your final manuscript.</p>
+    </div>
+    <div class="hero-right">
+      <div class="term-badge">3 Terms</div><br/>
+      <div class="term-badge">1 Academic Year</div><br/>
+      <div class="term-badge">Publication-Ready</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-inner">
+    <div class="section-label">Year-Long Curriculum</div>
+    <h2 class="section-title">From question to publication.</h2>
+
+    <div class="timeline">
+
+      <!-- FALL TERM -->
+      <div class="term-block">
+        <div class="term-label-col">
+          <span class="term-number">Term 01</span>
+          <span class="term-name">Fall</span>
+        </div>
+        <div class="term-dot"></div>
+        <div class="term-content">
+          <div class="term-header">
+            <div class="term-title-area">
+              <div class="term-subtitle">Fall Term</div>
+              <div class="term-full-title">Research Outline</div>
+            </div>
+            <div class="term-badge-inline">September — December</div>
+          </div>
+          <p class="term-description">
+            Students develop focused research questions and organize their ideas into a structured plan.
+            By the end of fall term, every student has a clear research roadmap that guides their project
+            from start to finish — including a defined scope, research question, and initial bibliography.
+          </p>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-icon">🔍</div>
+              <div class="skill-name">Question Formulation</div>
+              <div class="skill-desc">Narrowing broad curiosity into a specific, answerable research question.</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">📚</div>
+              <div class="skill-name">Literature Review</div>
+              <div class="skill-desc">Surveying existing scholarship to identify gaps and position your research.</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🗺️</div>
+              <div class="skill-name">Research Roadmap</div>
+              <div class="skill-desc">Building a structured plan with milestones, timelines, and scope.</div>
+            </div>
+          </div>
+          <div class="deliverables-list">
+            <div class="deliverables-label">Fall Deliverables</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Annotated bibliography (12–15 sources)</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Research question statement and justification</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Project outline and scope document</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Peer feedback on research question</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WINTER TERM -->
+      <div class="term-block">
+        <div class="term-label-col">
+          <span class="term-number">Term 02</span>
+          <span class="term-name">Winter</span>
+        </div>
+        <div class="term-dot"></div>
+        <div class="term-content">
+          <div class="term-header">
+            <div class="term-title-area">
+              <div class="term-subtitle">Winter Term</div>
+              <div class="term-full-title">Methodology</div>
+            </div>
+            <div class="term-badge-inline">January — March</div>
+          </div>
+          <p class="term-description">
+            Students explore a variety of research methods as they design their studies, applying
+            appropriate tools to collect and analyze data. Winter term is the most technically rigorous
+            phase — students learn to match their questions to the right methodological approach,
+            whether quantitative, qualitative, or mixed-methods.
+          </p>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-icon">⚗️</div>
+              <div class="skill-name">Research Design</div>
+              <div class="skill-desc">Choosing between experimental, observational, survey, or archival approaches.</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">📊</div>
+              <div class="skill-name">Data Collection</div>
+              <div class="skill-desc">Designing instruments — surveys, protocols, datasets — and collecting evidence.</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">📈</div>
+              <div class="skill-name">Data Analysis</div>
+              <div class="skill-desc">Applying appropriate analytical frameworks — statistical, thematic, or computational.</div>
+            </div>
+          </div>
+          <div class="deliverables-list">
+            <div class="deliverables-label">Winter Deliverables</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Methodology section draft</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Data collection instrument or protocol</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Preliminary results / data set</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Peer methodological review</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPRING TERM -->
+      <div class="term-block">
+        <div class="term-label-col">
+          <span class="term-number">Term 03</span>
+          <span class="term-name">Spring</span>
+        </div>
+        <div class="term-dot" style="border-color: var(--light-blue);"></div>
+        <div class="term-content" style="border-top-color: var(--mid-blue);">
+          <div class="term-header">
+            <div class="term-title-area">
+              <div class="term-subtitle" style="color: var(--mid-blue);">Spring Term</div>
+              <div class="term-full-title">Drafting & Editing</div>
+            </div>
+            <div class="term-badge-inline">April — June</div>
+          </div>
+          <p class="term-description">
+            Students turn their work into clear, well-structured drafts and refine them through
+            iterative peer review. Spring term culminates in each student presenting findings to
+            both academic and public audiences — and, for those ready, submitting to external
+            journals with PAPERS support.
+          </p>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-icon">✍️</div>
+              <div class="skill-name">Academic Writing</div>
+              <div class="skill-desc">Crafting clear, concise, and properly cited academic manuscripts.</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🔄</div>
+              <div class="skill-name">Peer Review</div>
+              <div class="skill-desc">Structured peer critique sessions modeled on journal review processes.</div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🎤</div>
+              <div class="skill-name">Public Presentation</div>
+              <div class="skill-desc">Communicating findings to academic and general audiences with confidence.</div>
+            </div>
+          </div>
+          <div class="deliverables-list">
+            <div class="deliverables-label">Spring Deliverables</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Full manuscript draft (complete paper)</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Two rounds of structured peer review</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Public or academic presentation</div>
+            <div class="deliverable"><div class="deliverable-check"></div>Final manuscript + journal submission (if ready)</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end timeline -->
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy-section">
+  <div class="philosophy-inner">
+    <div class="section-label" style="color:#ffffff">Our Approach</div>
+    <h2 class="section-title" style="color:#fff; margin-bottom:12px;">Built on three principles.</h2>
+    <p style="color:var(--ice); opacity:0.7; font-size:15px; margin-bottom:0; max-width:560px; line-height:1.8;">
+      PAPERS isn't a class — it's a research community. Everything we do is grounded in these commitments.
+    </p>
+    <div class="philosophy-grid">
+      <div class="philosophy-card">
+        <div class="philo-num">I</div>
+        <div class="philo-title">Student-Led Discovery</div>
+        <div class="philo-text">
+          PAPERS guides but doesn't prescribe. Every research question comes from the student.
+          Advisors ask questions; students find the answers.
+        </div>
+      </div>
+      <div class="philosophy-card">
+        <div class="philo-num">II</div>
+        <div class="philo-title">Rigorous Peer Review</div>
+        <div class="philo-text">
+          Peer review sessions are structured to mirror real academic processes — constructive,
+          rigorous, and designed to strengthen every paper.
+        </div>
+      </div>
+      <div class="philosophy-card">
+        <div class="philo-num">III</div>
+        <div class="philo-title">Publication as a Goal</div>
+        <div class="philo-text">
+          We treat every project as though it will be published. Whether or not it reaches a journal,
+          students build work they're proud to share with the world.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<section class="chapters-section">
+  <div class="chapters-inner">
+    <div class="section-label">Expand PAPERS</div>
+    <h2 class="section-title">Bring PAPERS to your school.</h2>
+
+    <div class="chapter-callout">
+      <div class="chapter-callout-icon">🏫</div>
+      <div>
+        <h3>The PAPERS Chapter Model</h3>
+        <p>
+          PAPERS is designed to be replicated. The three-term curriculum is structured, documented,
+          and portable — any school with motivated students and faculty support can launch a chapter.
+          Our framework travels with you.
+        </p>
+        <p>
+          Chapters access shared resources including curriculum guides, peer review rubrics, presentation
+          templates, and access to the PAPERS journal for student publication.
+        </p>
+        <a href="mailto:papers@andover.edu" class="btn-chapter">Inquire About Starting a Chapter →</a>
+      </div>
+    </div>
+
+    <div class="chapter-steps">
+      <div class="chapter-step">
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Connect</div>
+        <div class="step-desc">Reach out to the PAPERS leadership team to express interest and learn about requirements.</div>
+      </div>
+      <div class="chapter-step">
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Onboard</div>
+        <div class="step-desc">Receive the full curriculum package, training materials, and access to shared resources.</div>
+      </div>
+      <div class="chapter-step">
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Launch</div>
+        <div class="step-desc">Recruit your first cohort of student researchers and begin the fall term curriculum.</div>
+      </div>
+      <div class="chapter-step">
+        <div class="step-num">Step 04</div>
+        <div class="step-title">Publish</div>
+        <div class="step-desc">Students submit their work to the PAPERS journal and contribute to the research community.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div><span style="color:#ffffff; letter-spacing:4px;">PAPERS</span> &nbsp;·&nbsp; Phillips Academy Andover &nbsp;·&nbsp; papers@andover.edu</div>
+    <div>© 2025 Phillips Academy Papers Exploration and Research Society</div>
+  </div>
+</footer>
+
+</body>
+</html>
