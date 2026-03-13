@@ -6,7 +6,7 @@
   <title>Journal — PAPERS · Phillips Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    :root { --navy:#1a56a0; --blue:#2e6fc4; --mid-blue:#4a90d9; --light-blue:#74b3f0; --ice:#dbeeff; --cream:#f0f6ff; --paper:#f7faff; --gold:#e8eef5; --text:#0d2340; --muted:#5a7aaa; }
+    :root { --navy:#1a56a0; --blue:#2e6fc4; --mid-blue:#4a90d9; --light-blue:#74b3f0; --ice:#dbeeff; --cream:#f0f6ff; --paper:#f7faff; --text:#0d2340; --muted:#5a7aaa; }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Libre Baskerville',Georgia,serif; background:var(--paper); color:var(--text); }
     header { background:var(--navy); border-bottom:3px solid rgba(255,255,255,0.6); position:sticky; top:0; z-index:100; box-shadow:0 2px 16px rgba(30,70,140,0.2); }
@@ -71,7 +71,7 @@
     .sort-btn { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:6px 12px; border:1px solid #ddd; background:none; cursor:pointer; color:var(--muted); transition:all 0.2s; }
     .sort-btn.active,.sort-btn:hover { border-color:var(--navy); color:var(--navy); background:var(--ice); }
     .paper-entry { border-bottom:1px solid #dde6f5; padding:28px 0; cursor:pointer; transition:background 0.15s; }
-    .paper-entry:hover { background:rgba(116,179,240,0.05); }
+    .paper-entry:hover { background:rgba(116,179,240,0.06); }
     .paper-meta-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
     .paper-field { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2.5px; text-transform:uppercase; padding:3px 8px; background:var(--navy); color:#fff; }
     .paper-term { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; }
@@ -80,10 +80,8 @@
     .paper-author { font-size:12px; color:var(--muted); margin-bottom:12px; font-style:italic; }
     .paper-abstract { font-size:13px; line-height:1.8; color:#444; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
     .paper-footer { display:flex; align-items:center; gap:16px; margin-top:16px; }
-    .paper-link { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--mid-blue); text-decoration:none; }
+    .paper-link { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--mid-blue); }
     .paper-pages { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1px; color:var(--muted); }
-
-    /* ── PAPER DETAIL MODAL ── */
     .detail-overlay { position:fixed; inset:0; background:rgba(10,30,80,0.65); z-index:1050; display:none; align-items:center; justify-content:center; padding:32px; }
     .detail-overlay.open { display:flex; }
     .detail-modal { background:var(--paper); width:100%; max-width:720px; max-height:90vh; overflow-y:auto; border-top:4px solid var(--navy); box-shadow:0 24px 80px rgba(10,30,80,0.35); display:flex; flex-direction:column; }
@@ -112,7 +110,6 @@
     .btn-download.disabled { background:#ccc; cursor:not-allowed; color:#888; pointer-events:none; }
     .btn-detail-close { padding:13px 24px; border:1px solid #ccc; background:none; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; color:var(--muted); transition:all 0.2s; }
     .btn-detail-close:hover { border-color:var(--navy); color:var(--navy); }
-
     .empty-state { text-align:center; padding:80px 32px; display:none; }
     .empty-state.visible { display:block; }
     .empty-state-icon { font-size:48px; opacity:0.3; margin-bottom:20px; }
@@ -222,7 +219,7 @@
   </div>
 </div>
 
-<!-- PENDING CONFIRMATION MODAL -->
+<!-- PENDING MODAL -->
 <div class="modal-overlay" id="pendingOverlay" style="z-index:1100;">
   <div class="modal" style="max-width:480px;border-top:4px solid #4a90d9;">
     <div class="modal-header" style="background:#2e6fc4;">
@@ -310,7 +307,6 @@
       <button class="filter-option" onclick="setFilter('term','Spring 2026',this)"><span class="filter-dot"></span> Spring 2026</button>
     </div>
   </aside>
-
   <div class="papers-area">
     <div class="papers-header">
       <span class="papers-count" id="papersCountLabel">Loading papers...</span>
@@ -339,9 +335,159 @@
 </footer>
 
 <script>
+  // Clear any old cached data that might have wrong pending flags
+  const stored = localStorage.getItem('papers_list');
+  if (stored) {
+    const parsed = JSON.parse(stored);
+    // If seed papers are missing pending flag, reset storage
+    if (parsed.some(p => p.id <= 5 && p.pending === undefined)) {
+      localStorage.removeItem('papers_list');
+    }
+  }
+
   const seedPapers = [
     { id:1, isNew:false, pending:false, title:"The Effect of Social Media Consumption on Adolescent Political Polarization", author:"Alexandra Chen '26", field:"Political Science", term:"Spring 2025", pages:"18", abstract:"This study examines the correlation between daily social media usage and political attitude divergence among high school students aged 14–18, drawing on survey data from 200 participants across five schools. Using ordinal logistic regression, results suggest a statistically significant relationship between platform-specific usage patterns and ideological entrenchment, particularly on short-form video platforms.", filename:null },
     { id:2, isNew:false, pending:false, title:"Microplastic Accumulation in Freshwater Ecosystems: A Meta-Analysis", author:"James Park '26", field:"Biology", term:"Spring 2025", pages:"22", abstract:"A systematic review of 34 peer-reviewed studies examining microplastic concentration levels in North American freshwater habitats, with implications for aquatic biodiversity and human health. Findings indicate a 340% increase in median microplastic density across sampled rivers from 2010 to 2023, with polyethylene terephthalate (PET) comprising the majority of detected particles.", filename:null },
     { id:3, isNew:false, pending:false, title:"Minimum Wage Increases and Employment Outcomes in Massachusetts Service Industries", author:"Priya Patel '25", field:"Economics", term:"Winter 2025", pages:"15", abstract:"This paper analyzes the labor market effects of Massachusetts' 2023 minimum wage increase on employment rates in the food service and retail sectors. Utilizing a difference-in-differences approach with New Hampshire as the control group, the study finds no significant negative employment effects in the short term, with potential positive spillover effects on consumer spending.", filename:null },
     { id:4, isNew:false, pending:false, title:"Disparities in STEM Pipeline Access: A Comparative Study of Urban and Rural High Schools", author:"Marcus Williams '25", field:"Social Sciences", term:"Winter 2025", pages:"20", abstract:"Through analysis of AP enrollment data and standardized test performance from 2018–2023, this study investigates the structural barriers that disproportionately limit STEM pipeline access for students in rural school districts. Qualitative interviews with 40 students and 15 educators supplement quantitative findings, revealing resource allocation and teacher retention as primary factors.", filename:null },
-    { id:5, isNew:false, pending:false, title:"mRNA Vaccine Technology and Immune Response Duration: A Literature Review", author:"Sophia Liu '25", field:"Biology", term:"Fall 2024", pages:"16", abstrac
+    { id:5, isNew:false, pending:false, title:"mRNA Vaccine Technology and Immune Response Duration: A Literature Review", author:"Sophia Liu '25", field:"Biology", term:"Fall 2024", pages:"16", abstract:"This literature review synthesizes current research on the longevity of immune responses elicited by mRNA-based vaccines, focusing on the COVID-19 context but drawing broader implications for vaccine platform development. Analysis of 28 clinical studies reveals significant heterogeneity in antibody titer durability, with cellular immunity metrics showing greater persistence.", filename:null }
+  ];
+
+  let papers = JSON.parse(localStorage.getItem('papers_list') || 'null') || seedPapers;
+  let currentFilter = { field:'all', term:'all' };
+  let currentSort = 'newest';
+  let searchQuery = '';
+
+  function savePapers() { localStorage.setItem('papers_list', JSON.stringify(papers)); }
+  function openModal() { document.getElementById('uploadModal').classList.add('open'); }
+  function closeModal() { document.getElementById('uploadModal').classList.remove('open'); }
+  function showPendingConfirm() { document.getElementById('pendingOverlay').classList.add('open'); }
+  function closePendingConfirm() { document.getElementById('pendingOverlay').classList.remove('open'); }
+
+  function openDetail(id) {
+    const p = papers.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('detailField').textContent = p.field;
+    document.getElementById('detailTerm').textContent = p.term;
+    document.getElementById('detailTitle').textContent = p.title;
+    document.getElementById('detailAuthor').textContent = p.author;
+    document.getElementById('detailAvatar').textContent = p.author.trim()[0].toUpperCase();
+    document.getElementById('detailAbstract').textContent = p.abstract;
+    document.getElementById('detailMetaField').textContent = p.field;
+    document.getElementById('detailMetaTerm').textContent = p.term;
+    document.getElementById('detailMetaPages').textContent = p.pages !== '—' ? p.pages + ' pages' : 'N/A';
+    const dlBtn = document.getElementById('detailDownloadBtn');
+    if (p.filename) {
+      dlBtn.textContent = '📎 Download Paper';
+      dlBtn.className = 'btn-download';
+      dlBtn.href = p.filename;
+    } else {
+      dlBtn.textContent = 'No PDF Available';
+      dlBtn.className = 'btn-download disabled';
+      dlBtn.href = '#';
+    }
+    document.getElementById('detailOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetail() {
+    document.getElementById('detailOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleFile(input) {
+    if (input.files[0]) document.getElementById('fileDropText').textContent = '📎 ' + input.files[0].name;
+  }
+
+  function submitPaper() {
+    const title = document.getElementById('titleInput').value.trim();
+    const author = document.getElementById('authorInput').value.trim();
+    const field = document.getElementById('fieldInput').value;
+    const term = document.getElementById('termInput').value;
+    const abstract = document.getElementById('abstractInput').value.trim();
+    const pages = document.getElementById('pagesInput').value.trim();
+    const fileInput = document.getElementById('fileInput');
+    if (!title || !author || !field || !abstract) { alert('Please fill in all required fields.'); return; }
+    papers.unshift({ id:Date.now(), isNew:true, pending:true, title, author, field, term:term||'Spring 2026', pages:pages||'—', abstract, filename:fileInput.files[0]?fileInput.files[0].name:null });
+    savePapers(); closeModal(); showPendingConfirm();
+    document.getElementById('titleInput').value='';
+    document.getElementById('authorInput').value='';
+    document.getElementById('fieldInput').value='';
+    document.getElementById('termInput').value='';
+    document.getElementById('abstractInput').value='';
+    document.getElementById('pagesInput').value='';
+    document.getElementById('fileDropText').textContent='Click to select PDF file';
+  }
+
+  function setFilter(type, value, el) {
+    currentFilter[type] = value;
+    el.parentElement.querySelectorAll('.filter-option').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    renderPapers();
+  }
+
+  function sortPapers(mode, el) {
+    currentSort = mode;
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    renderPapers();
+  }
+
+  function filterPapers() { searchQuery = document.getElementById('searchInput').value.toLowerCase(); renderPapers(); }
+
+  function getFilteredPapers() {
+    return papers.filter(p => {
+      if (p.pending) return false;
+      const matchField = currentFilter.field === 'all' || p.field === currentFilter.field;
+      const matchTerm = currentFilter.term === 'all' || p.term === currentFilter.term;
+      const q = searchQuery;
+      const matchSearch = !q || p.title.toLowerCase().includes(q) || p.author.toLowerCase().includes(q) || p.abstract.toLowerCase().includes(q) || p.field.toLowerCase().includes(q);
+      return matchField && matchTerm && matchSearch;
+    });
+  }
+
+  function renderPapers() {
+    let filtered = getFilteredPapers();
+    if (currentSort === 'title') filtered.sort((a,b) => a.title.localeCompare(b.title));
+    else if (currentSort === 'field') filtered.sort((a,b) => a.field.localeCompare(b.field));
+    const approvedPapers = papers.filter(p => !p.pending);
+    const fields = ['Biology','Economics','Social Sciences','Political Science','Other'];
+    document.getElementById('count-all').textContent = approvedPapers.length;
+    fields.forEach(f => { const el = document.getElementById('count-'+f); if(el) el.textContent = approvedPapers.filter(p => p.field===f||(f==='Other'&&!['Biology','Economics','Social Sciences','Political Science'].includes(p.field))).length; });
+    const list = document.getElementById('papersList');
+    const empty = document.getElementById('emptyState');
+    document.getElementById('papersCountLabel').textContent = `${filtered.length} paper${filtered.length!==1?'s':''} found`;
+    if (filtered.length === 0) { list.innerHTML=''; empty.classList.add('visible'); return; }
+    empty.classList.remove('visible');
+    list.innerHTML = filtered.map(p => `
+      <div class="paper-entry" onclick="openDetail(${p.id})">
+        <div class="paper-meta-row">
+          <span class="paper-field">${p.field}</span>
+          <span class="paper-term">${p.term}</span>
+          ${p.isNew ? '<span class="paper-new">New</span>' : ''}
+        </div>
+        <div class="paper-title">${p.title}</div>
+        <div class="paper-author">by ${p.author}</div>
+        <div class="paper-abstract">${p.abstract}</div>
+        <div class="paper-footer">
+          <span class="paper-link">Read Full Abstract →</span>
+          ${p.pages!=='—'?`<span class="paper-pages">${p.pages} pp.</span>`:''}
+          ${p.filename?`<span class="paper-pages" style="color:var(--mid-blue);">📎 PDF</span>`:''}
+        </div>
+      </div>`).join('');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  document.getElementById('detailOverlay').addEventListener('click', function(e){ if(e.target===this) closeDetail(); });
+  document.getElementById('uploadModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+  document.getElementById('pendingOverlay').addEventListener('click', function(e){ if(e.target===this) closePendingConfirm(); });
+
+  renderPapers();
+</script>
+</body>
+</html>
