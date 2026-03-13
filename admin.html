@@ -6,7 +6,7 @@
   <title>Admin — PAPERS · Phillips Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    :root { --navy:#1a56a0; --blue:#2e6fc4; --mid-blue:#4a90d9; --light-blue:#74b3f0; --ice:#dbeeff; --cream:#f0f6ff; --paper:#f7faff; --text:#0d2340; --muted:#5a7aaa; --red:#c0392b; --red-light:#fdf0ef; }
+    :root { --navy:#1a56a0; --blue:#2e6fc4; --mid-blue:#4a90d9; --light-blue:#74b3f0; --ice:#dbeeff; --cream:#f0f6ff; --paper:#f7faff; --text:#0d2340; --muted:#5a7aaa; --red:#c0392b; --red-light:#fdf0ef; --green:#2a7a2a; }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Libre Baskerville',Georgia,serif; background:var(--paper); color:var(--text); min-height:100vh; }
     header { background:var(--navy); border-bottom:3px solid rgba(255,255,255,0.6); position:sticky; top:0; z-index:100; box-shadow:0 2px 16px rgba(30,70,140,0.2); }
@@ -58,13 +58,15 @@
     .papers-table th { font-family:'Source Code Pro',monospace; font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted); text-align:left; padding:10px 12px; border-bottom:1px solid #dde6f5; background:var(--cream); }
     .papers-table td { padding:14px 12px; border-bottom:1px solid #eef2f8; font-size:12px; color:var(--text); vertical-align:top; }
     .papers-table tr:hover td { background:#f0f6ff; }
-    .paper-title-cell { font-family:'IM Fell English',serif; font-size:14px; font-style:italic; color:var(--navy); max-width:240px; }
+    .paper-title-cell { font-family:'IM Fell English',serif; font-size:14px; font-style:italic; color:var(--navy); max-width:220px; }
     .field-tag { font-family:'Source Code Pro',monospace; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; padding:2px 7px; background:var(--navy); color:#fff; display:inline-block; }
     .pending-tag { font-family:'Source Code Pro',monospace; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; padding:2px 6px; background:rgba(74,144,217,0.15); color:var(--mid-blue); border:1px solid var(--light-blue); display:inline-block; }
-    .delete-btn { background:none; border:1px solid #e0c8c8; color:var(--red); padding:5px 10px; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+    .approve-btn { background:none; border:1px solid #c8d8c8; color:var(--green); padding:5px 8px; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; margin-right:4px; }
+    .approve-btn:hover { background:var(--green); color:#fff; border-color:var(--green); }
+    .edit-btn { background:none; border:1px solid #c8d4e8; color:var(--mid-blue); padding:5px 8px; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; margin-right:4px; }
+    .edit-btn:hover { background:var(--mid-blue); color:#fff; border-color:var(--mid-blue); }
+    .delete-btn { background:none; border:1px solid #e0c8c8; color:var(--red); padding:5px 8px; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
     .delete-btn:hover { background:var(--red); color:#fff; border-color:var(--red); }
-    .approve-btn { background:none; border:1px solid #c8d8c8; color:#2a7a2a; padding:5px 10px; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; margin-right:6px; }
-    .approve-btn:hover { background:#2a7a2a; color:#fff; border-color:#2a7a2a; }
     .empty-table { text-align:center; padding:48px; color:var(--muted); font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
     .upload-panel { background:#fff; border:1px solid #dde6f5; border-top:3px solid var(--navy); padding:32px; height:fit-content; }
     .upload-panel h3 { font-family:'IM Fell English',serif; font-size:22px; font-style:italic; color:var(--navy); margin-bottom:24px; }
@@ -81,14 +83,28 @@
     .toast { position:fixed; bottom:32px; right:32px; background:var(--navy); color:#fff; padding:14px 24px; font-family:'Source Code Pro',monospace; font-size:11px; letter-spacing:1.5px; border-left:4px solid #fff; z-index:2000; transform:translateY(100px); opacity:0; transition:all 0.3s; }
     .toast.show { transform:translateY(0); opacity:1; }
     .toast.error-toast { border-left-color:var(--red); background:#8b1a1a; }
-    .confirm-overlay { position:fixed; inset:0; background:rgba(10,30,80,0.6); z-index:1000; display:none; align-items:center; justify-content:center; }
-    .confirm-overlay.open { display:flex; }
+
+    /* ── MODALS (confirm delete + edit) ── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(10,30,80,0.6); z-index:1000; display:none; align-items:center; justify-content:center; padding:32px; }
+    .modal-overlay.open { display:flex; }
     .confirm-box { background:#fff; border-top:4px solid var(--red); padding:36px; max-width:380px; width:100%; box-shadow:0 20px 60px rgba(10,30,80,0.3); }
     .confirm-box h3 { font-family:'IM Fell English',serif; font-size:22px; font-style:italic; color:var(--red); margin-bottom:12px; }
     .confirm-box p { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:24px; }
     .confirm-actions { display:flex; gap:12px; }
     .confirm-yes { flex:1; background:var(--red); color:#fff; border:none; padding:11px; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
     .confirm-no { flex:1; background:none; color:var(--muted); border:1px solid #ddd; padding:11px; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
+
+    /* Edit modal */
+    .edit-modal { background:#fff; border-top:4px solid var(--navy); max-width:560px; width:100%; box-shadow:0 20px 60px rgba(10,30,80,0.3); max-height:90vh; overflow-y:auto; }
+    .edit-modal-header { background:var(--navy); padding:22px 28px; display:flex; justify-content:space-between; align-items:center; }
+    .edit-modal-header h3 { font-family:'IM Fell English',serif; color:#fff; font-size:22px; font-style:italic; }
+    .edit-modal-close { background:none; border:1px solid rgba(255,255,255,0.3); color:#fff; width:32px; height:32px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; }
+    .edit-modal-body { padding:28px; }
+    .edit-modal-footer { padding:0 28px 28px; display:flex; gap:12px; justify-content:flex-end; }
+    .btn-save { padding:11px 24px; background:var(--navy); color:#fff; border:none; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
+    .btn-save:hover { background:var(--blue); }
+    .btn-cancel-edit { padding:11px 20px; border:1px solid #ccc; background:none; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; color:var(--muted); }
+
     footer { background:#0d2a5e; border-top:1px solid rgba(116,179,240,0.2); padding:32px; color:var(--muted); font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:1.5px; text-align:center; margin-top:48px; }
     @media (max-width:900px) { .admin-main { grid-template-columns:1fr; } }
   </style>
@@ -104,7 +120,7 @@
         <div class="subtitle">Phillips Academy · Est. 2024</div>
       </div>
     </a>
-    <div style="display:flex; align-items:center; gap:16px;">
+    <div style="display:flex;align-items:center;gap:16px;">
       <span class="admin-badge">🔒 Admin Portal</span>
       <nav>
         <a href="index.html">Home</a>
@@ -131,7 +147,7 @@
     <div class="admin-hero-inner">
       <div>
         <h1>Admin Portal</h1>
-        <p>Manage submitted papers — upload, approve, and delete entries from the PAPERS journal.</p>
+        <p>Manage submitted papers — publish, edit, approve, and delete entries.</p>
       </div>
       <button class="logout-btn" onclick="logout()">Log Out</button>
     </div>
@@ -153,11 +169,11 @@
         <thead><tr><th>Title</th><th>Author</th><th>Field</th><th>Term</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody id="papersTableBody"></tbody>
       </table>
-      <div class="empty-table" id="emptyTable" style="display:none;">No papers submitted yet.</div>
+      <div class="empty-table" id="emptyTable" style="display:none;">No papers yet.</div>
     </div>
     <div class="upload-panel">
       <h3>Publish a Paper</h3>
-      <div class="form-group"><label class="form-label">Paper Title *</label><input type="text" class="form-input" id="aTitle" placeholder="Full title of the paper"/></div>
+      <div class="form-group"><label class="form-label">Paper Title *</label><input type="text" class="form-input" id="aTitle" placeholder="Full title"/></div>
       <div class="form-group"><label class="form-label">Author Name *</label><input type="text" class="form-input" id="aAuthor" placeholder="Student name and year"/></div>
       <div class="form-group"><label class="form-label">Field *</label>
         <select class="form-select" id="aField">
@@ -183,15 +199,16 @@
           <div class="file-drop-text" id="aFileText">Click to attach PDF</div>
         </div>
       </div>
-      <button class="submit-btn" onclick="adminUpload()">+ Publish Paper to Journal</button>
+      <button class="submit-btn" onclick="adminUpload()">+ Publish to Journal</button>
     </div>
   </div>
 </div>
 
-<div class="confirm-overlay" id="confirmOverlay">
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmOverlay">
   <div class="confirm-box">
     <h3>Delete this paper?</h3>
-    <p>This will permanently remove the paper from the journal. This cannot be undone.</p>
+    <p>This will permanently remove the paper. This cannot be undone.</p>
     <div class="confirm-actions">
       <button class="confirm-yes" onclick="confirmDelete()">Yes, Delete</button>
       <button class="confirm-no" onclick="closeConfirm()">Cancel</button>
@@ -199,10 +216,44 @@
   </div>
 </div>
 
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editOverlay">
+  <div class="edit-modal">
+    <div class="edit-modal-header">
+      <h3>Edit Paper</h3>
+      <button class="edit-modal-close" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="edit-modal-body">
+      <input type="hidden" id="editId"/>
+      <div class="form-group"><label class="form-label">Paper Title *</label><input type="text" class="form-input" id="editTitle"/></div>
+      <div class="form-group"><label class="form-label">Author Name *</label><input type="text" class="form-input" id="editAuthor"/></div>
+      <div class="form-group"><label class="form-label">Field *</label>
+        <select class="form-select" id="editField">
+          <option>Biology</option><option>Economics</option><option>Social Sciences</option>
+          <option>Political Science</option><option>History</option><option>Psychology</option>
+          <option>Environmental Science</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Term</label>
+        <select class="form-select" id="editTerm">
+          <option>Spring 2026</option><option>Winter 2026</option><option>Fall 2025</option>
+          <option>Spring 2025</option><option>Winter 2025</option><option>Fall 2024</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Abstract *</label><textarea class="form-textarea" id="editAbstract" style="height:120px;"></textarea></div>
+      <div class="form-group"><label class="form-label">Pages</label><input type="text" class="form-input" id="editPages" placeholder="e.g. 14"/></div>
+    </div>
+    <div class="edit-modal-footer">
+      <button class="btn-cancel-edit" onclick="closeEdit()">Cancel</button>
+      <button class="btn-save" onclick="saveEdit()">Save Changes →</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <footer>
-  <span style="color:#fff; letter-spacing:4px;">PAPERS</span> &nbsp;·&nbsp; Admin Portal &nbsp;·&nbsp; Restricted Access &nbsp;·&nbsp; Phillips Academy Andover
+  <span style="color:#fff;letter-spacing:4px;">PAPERS</span> &nbsp;·&nbsp; Admin Portal &nbsp;·&nbsp; Restricted Access &nbsp;·&nbsp; Phillips Academy Andover
 </footer>
 
 <script>
@@ -216,8 +267,18 @@
     { id:5, isNew:false, pending:false, title:"mRNA Vaccine Technology and Immune Response Duration: A Literature Review", author:"Sophia Liu '25", field:"Biology", term:"Fall 2024", pages:"16", abstract:"This literature review synthesizes current research on the longevity of immune responses elicited by mRNA-based vaccines.", filename:null }
   ];
 
+  // Clear bad cached data missing pending flag
+  const stored = localStorage.getItem('papers_list');
+  if (stored) {
+    const parsed = JSON.parse(stored);
+    if (parsed.some(p => p.id <= 5 && p.pending === undefined)) {
+      localStorage.removeItem('papers_list');
+    }
+  }
+
   let papers = JSON.parse(localStorage.getItem('papers_list') || 'null') || seedPapers;
   let pendingDeleteId = null;
+  let editingId = null;
 
   function savePapers() { localStorage.setItem('papers_list', JSON.stringify(papers)); }
 
@@ -256,9 +317,13 @@
         <td style="font-size:11px;color:var(--muted);font-style:italic;">${p.author}</td>
         <td><span class="field-tag">${p.field}</span></td>
         <td style="font-family:'Source Code Pro',monospace;font-size:10px;color:var(--muted);">${p.term}</td>
-        <td>${p.pending ? '<span class="pending-tag">Pending</span>' : '<span style="font-family:Source Code Pro,monospace;font-size:9px;color:#2a7a2a;letter-spacing:1px;">✓ Published</span>'}</td>
-        <td>
+        <td>${p.pending
+          ? '<span class="pending-tag">Pending</span>'
+          : '<span style="font-family:Source Code Pro,monospace;font-size:9px;color:#2a7a2a;letter-spacing:1px;">✓ Published</span>'
+        }</td>
+        <td style="white-space:nowrap;">
           ${p.pending ? `<button class="approve-btn" onclick="approvePaper(${p.id})">Approve</button>` : ''}
+          <button class="edit-btn" onclick="openEdit(${p.id})">Edit</button>
           <button class="delete-btn" onclick="askDelete(${p.id})">Delete</button>
         </td>
       </tr>`).join('');
@@ -272,7 +337,7 @@
 
   function approvePaper(id) {
     const p = papers.find(x => x.id === id);
-    if (p) { p.isNew = false; p.pending = false; savePapers(); renderTable(); updateStats(); showToast('Paper approved and now live in the journal!'); }
+    if (p) { p.isNew = false; p.pending = false; savePapers(); renderTable(); updateStats(); showToast('Paper approved and now live!'); }
   }
 
   function askDelete(id) { pendingDeleteId = id; document.getElementById('confirmOverlay').classList.add('open'); }
@@ -283,6 +348,46 @@
     showToast('Paper deleted.', true);
   }
 
+  // ── EDIT ──
+  function openEdit(id) {
+    const p = papers.find(x => x.id === id);
+    if (!p) return;
+    editingId = id;
+    document.getElementById('editId').value = id;
+    document.getElementById('editTitle').value = p.title;
+    document.getElementById('editAuthor').value = p.author;
+    document.getElementById('editField').value = p.field;
+    document.getElementById('editTerm').value = p.term;
+    document.getElementById('editAbstract').value = p.abstract;
+    document.getElementById('editPages').value = p.pages !== '—' ? p.pages : '';
+    document.getElementById('editOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeEdit() {
+    document.getElementById('editOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    editingId = null;
+  }
+
+  function saveEdit() {
+    const title = document.getElementById('editTitle').value.trim();
+    const author = document.getElementById('editAuthor').value.trim();
+    const field = document.getElementById('editField').value;
+    const term = document.getElementById('editTerm').value;
+    const abstract = document.getElementById('editAbstract').value.trim();
+    const pages = document.getElementById('editPages').value.trim();
+    if (!title || !author || !abstract) { showToast('Please fill in all required fields.', true); return; }
+    const p = papers.find(x => x.id === editingId);
+    if (p) {
+      p.title = title; p.author = author; p.field = field;
+      p.term = term; p.abstract = abstract; p.pages = pages || '—';
+      savePapers(); renderTable(); updateStats(); closeEdit();
+      showToast('Paper updated successfully!');
+    }
+  }
+
+  // ── ADMIN PUBLISH ──
   function handleAdminFile(input) {
     if (input.files[0]) document.getElementById('aFileText').textContent = '📎 ' + input.files[0].name;
   }
@@ -296,7 +401,12 @@
     const pages = document.getElementById('aPages').value.trim();
     const fileInput = document.getElementById('aFile');
     if (!title || !author || !field || !abstract) { showToast('Please fill in all required fields.', true); return; }
-    papers.unshift({ id:Date.now(), isNew:false, pending:false, title, author, field, term, pages:pages||'—', abstract, filename:fileInput.files[0]?fileInput.files[0].name:null });
+    papers.unshift({
+      id: Date.now(), isNew: false, pending: false,
+      title, author, field, term,
+      pages: pages || '—', abstract,
+      filename: fileInput.files[0] ? fileInput.files[0].name : null
+    });
     savePapers(); renderTable(); updateStats();
     showToast('Paper published to journal!');
     document.getElementById('aTitle').value='';
@@ -316,6 +426,7 @@
   }
 
   document.getElementById('confirmOverlay').addEventListener('click', function(e){ if(e.target===this) closeConfirm(); });
+  document.getElementById('editOverlay').addEventListener('click', function(e){ if(e.target===this) closeEdit(); });
 </script>
 </body>
 </html>
