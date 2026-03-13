@@ -6,320 +6,95 @@
   <title>Admin — PAPERS · Phillips Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --navy: #1a56a0;
-      --blue: #2e6fc4;
-      --mid-blue: #4a90d9;
-      --light-blue: #74b3f0;
-      --ice: #dbeeff;
-      --cream: #f0f6ff;
-      --paper: #f7faff;
-      --text: #0d2340;
-      --muted: #5a7aaa;
-      --red: #c0392b;
-      --red-light: #fdf0ef;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Libre Baskerville', Georgia, serif; background: var(--paper); color: var(--text); min-height: 100vh; }
-
-    /* ── HEADER ── */
-    header {
-      background: var(--navy);
-      border-bottom: 3px solid rgba(255,255,255,0.6);
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 16px rgba(30,70,140,0.2);
-    }
-    .header-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 32px;
-    }
-    .logo-block { display: flex; align-items: center; gap: 16px; text-decoration: none; }
-    .logo-seal {
-      width: 52px; height: 52px; border: 2px solid rgba(255,255,255,0.6); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--blue), var(--navy));
-    }
-    .logo-seal span { font-family: 'IM Fell English', serif; color: #ffffff; font-size: 17px; font-style: italic; }
-    .logo-text .wordmark { font-family: 'IM Fell English', serif; font-size: 22px; letter-spacing: 4px; color: #fff; }
-    .logo-text .subtitle { font-size: 9px; letter-spacing: 2.5px; color: var(--ice); text-transform: uppercase; font-family: 'Source Code Pro', monospace; margin-top: 2px; }
-    nav { display: flex; gap: 6px; }
-    nav a {
-      color: var(--ice); text-decoration: none; font-family: 'Source Code Pro', monospace;
-      font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px;
-      border: 1px solid transparent; transition: all 0.2s;
-    }
-    nav a:hover { color: #fff; border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.12); }
-    .admin-badge {
-      font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2px;
-      text-transform: uppercase; padding: 4px 10px;
-      background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.4);
-    }
-
-    /* ── LOGIN SCREEN ── */
-    #loginScreen {
-      min-height: calc(100vh - 81px);
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--navy) 0%, #1a4a8a 100%);
-      position: relative; overflow: hidden;
-    }
-    #loginScreen::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(116,179,240,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(116,179,240,0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .login-box {
-      background: #fff;
-      border-top: 4px solid var(--navy);
-      padding: 52px 48px;
-      width: 100%; max-width: 420px;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(10,30,80,0.3);
-    }
-    .login-icon {
-      font-size: 32px; text-align: center; margin-bottom: 8px;
-    }
-    .login-title {
-      font-family: 'IM Fell English', serif;
-      font-size: 28px; font-style: italic;
-      color: var(--navy); text-align: center; margin-bottom: 6px;
-    }
-    .login-sub {
-      font-family: 'Source Code Pro', monospace;
-      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--muted); text-align: center; margin-bottom: 36px;
-    }
-    .login-label {
-      font-family: 'Source Code Pro', monospace;
-      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--muted); display: block; margin-bottom: 8px;
-    }
-    .login-input {
-      width: 100%; border: 1px solid #ccd6e8; padding: 12px 16px;
-      font-family: 'Libre Baskerville', serif; font-size: 15px;
-      color: var(--text); outline: none; transition: border 0.2s;
-      margin-bottom: 20px; letter-spacing: 3px;
-    }
-    .login-input:focus { border-color: var(--mid-blue); }
-    .login-input.error { border-color: var(--red); background: var(--red-light); }
-    .login-btn {
-      width: 100%; background: var(--navy); color: #fff;
-      border: none; padding: 14px;
-      font-family: 'Source Code Pro', monospace; font-size: 11px;
-      letter-spacing: 2px; text-transform: uppercase;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .login-btn:hover { background: var(--blue); }
-    .login-error {
-      font-family: 'Source Code Pro', monospace; font-size: 10px;
-      letter-spacing: 1px; color: var(--red);
-      text-align: center; margin-top: 14px;
-      display: none;
-    }
-    .login-error.show { display: block; }
-    .shake { animation: shake 0.4s ease; }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
-    }
-
-    /* ── ADMIN PANEL ── */
-    #adminPanel { display: none; }
-
-    .admin-hero {
-      background: var(--navy);
-      padding: 48px 32px;
-      position: relative; overflow: hidden;
-    }
-    .admin-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(74,144,217,0.3) 0%, transparent 60%);
-    }
-    .admin-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; display: flex; justify-content: space-between; align-items: center; }
-    .admin-hero h1 { font-family: 'IM Fell English', serif; font-size: 40px; color: #fff; font-style: italic; }
-    .admin-hero p { font-size: 13px; color: var(--ice); opacity: 0.7; margin-top: 6px; }
-    .logout-btn {
-      background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.4);
-      padding: 10px 20px; font-family: 'Source Code Pro', monospace;
-      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .logout-btn:hover { background: rgba(255,255,255,0.25); }
-
-    /* ── ADMIN STATS ── */
-    .admin-stats {
-      background: var(--blue);
-      border-bottom: 1px solid rgba(116,179,240,0.3);
-      padding: 0 32px;
-    }
-    .admin-stats-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; gap: 0;
-    }
-    .stat-box {
-      padding: 20px 40px 20px 0; margin-right: 40px;
-      border-right: 1px solid rgba(255,255,255,0.1);
-    }
-    .stat-box:last-child { border-right: none; }
-    .stat-box-num { font-family: 'IM Fell English', serif; font-size: 32px; color: #fff; line-height: 1; }
-    .stat-box-label { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--ice); opacity: 0.7; margin-top: 4px; }
-
-    /* ── MAIN ADMIN LAYOUT ── */
-    .admin-main { max-width: 1200px; margin: 0 auto; padding: 48px 32px; display: grid; grid-template-columns: 1fr 380px; gap: 48px; }
-
-    /* ── PAPERS TABLE ── */
-    .section-head {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px; padding-bottom: 14px;
-      border-bottom: 2px solid var(--navy);
-    }
-    .section-head h2 { font-family: 'IM Fell English', serif; font-size: 24px; font-style: italic; color: var(--navy); }
-    .section-label {
-      font-family: 'Source Code Pro', monospace; font-size: 9px;
-      letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
-    }
-
-    .papers-table { width: 100%; border-collapse: collapse; }
-    .papers-table th {
-      font-family: 'Source Code Pro', monospace; font-size: 8px;
-      letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted);
-      text-align: left; padding: 10px 12px; border-bottom: 1px solid #dde6f5;
-      background: var(--cream);
-    }
-    .papers-table td {
-      padding: 14px 12px; border-bottom: 1px solid #eef2f8;
-      font-size: 12px; color: var(--text); vertical-align: top;
-    }
-    .papers-table tr:hover td { background: #f0f6ff; }
-    .paper-title-cell {
-      font-family: 'IM Fell English', serif; font-size: 14px;
-      font-style: italic; color: var(--navy); max-width: 240px;
-    }
-    .field-tag {
-      font-family: 'Source Code Pro', monospace; font-size: 8px;
-      letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 7px;
-      background: var(--navy); color: #fff; display: inline-block;
-    }
-    .new-tag {
-      font-family: 'Source Code Pro', monospace; font-size: 8px;
-      letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 6px;
-      background: rgba(74,144,217,0.15); color: var(--mid-blue);
-      border: 1px solid var(--light-blue); display: inline-block; margin-left: 4px;
-    }
-    .delete-btn {
-      background: none; border: 1px solid #e0c8c8; color: var(--red);
-      padding: 5px 10px; font-family: 'Source Code Pro', monospace;
-      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .delete-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
-    .approve-btn {
-      background: none; border: 1px solid #c8d8c8; color: #2a7a2a;
-      padding: 5px 10px; font-family: 'Source Code Pro', monospace;
-      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.2s; margin-right: 6px;
-    }
-    .approve-btn:hover { background: #2a7a2a; color: #fff; border-color: #2a7a2a; }
-    .empty-table {
-      text-align: center; padding: 48px; color: var(--muted);
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* ── UPLOAD PANEL ── */
-    .upload-panel {
-      background: #fff; border: 1px solid #dde6f5;
-      border-top: 3px solid var(--navy);
-      padding: 32px;
-      height: fit-content;
-    }
-    .upload-panel h3 { font-family: 'IM Fell English', serif; font-size: 22px; font-style: italic; color: var(--navy); margin-bottom: 24px; }
-    .form-group { margin-bottom: 16px; }
-    .form-label {
-      display: block; font-family: 'Source Code Pro', monospace;
-      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 7px;
-    }
-    .form-input, .form-select, .form-textarea {
-      width: 100%; border: 1px solid #ccd6e8; padding: 9px 12px;
-      font-family: 'Libre Baskerville', serif; font-size: 13px;
-      color: var(--text); outline: none; transition: border 0.2s;
-      background: #fff;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--mid-blue); }
-    .form-textarea { height: 80px; resize: vertical; }
-    .file-drop {
-      border: 2px dashed #ccd6e8; padding: 24px; text-align: center;
-      background: var(--paper); cursor: pointer; transition: all 0.2s;
-    }
-    .file-drop:hover { border-color: var(--mid-blue); background: var(--cream); }
-    .file-drop-text { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-top: 6px; }
-    .submit-btn {
-      width: 100%; background: var(--navy); color: #fff; border: none;
-      padding: 13px; font-family: 'Source Code Pro', monospace;
-      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      cursor: pointer; transition: background 0.2s; margin-top: 8px;
-    }
-    .submit-btn:hover { background: var(--blue); }
-
-    /* ── TOAST ── */
-    .toast {
-      position: fixed; bottom: 32px; right: 32px;
-      background: var(--navy); color: #fff; padding: 14px 24px;
-      font-family: 'Source Code Pro', monospace; font-size: 11px; letter-spacing: 1.5px;
-      border-left: 4px solid #fff; z-index: 2000;
-      transform: translateY(100px); opacity: 0; transition: all 0.3s;
-    }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.error-toast { border-left-color: var(--red); background: #8b1a1a; }
-
-    /* ── CONFIRM MODAL ── */
-    .confirm-overlay {
-      position: fixed; inset: 0; background: rgba(10,30,80,0.6);
-      z-index: 1000; display: none; align-items: center; justify-content: center;
-    }
-    .confirm-overlay.open { display: flex; }
-    .confirm-box {
-      background: #fff; border-top: 4px solid var(--red);
-      padding: 36px; max-width: 380px; width: 100%;
-      box-shadow: 0 20px 60px rgba(10,30,80,0.3);
-    }
-    .confirm-box h3 { font-family: 'IM Fell English', serif; font-size: 22px; font-style: italic; color: var(--red); margin-bottom: 12px; }
-    .confirm-box p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
-    .confirm-actions { display: flex; gap: 12px; }
-    .confirm-yes {
-      flex: 1; background: var(--red); color: #fff; border: none; padding: 11px;
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px;
-      text-transform: uppercase; cursor: pointer;
-    }
-    .confirm-no {
-      flex: 1; background: none; color: var(--muted); border: 1px solid #ddd; padding: 11px;
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px;
-      text-transform: uppercase; cursor: pointer;
-    }
-
-    footer {
-      background: #0d2a5e; border-top: 1px solid rgba(116,179,240,0.2);
-      padding: 32px; color: var(--muted);
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 1.5px;
-      text-align: center; margin-top: 48px;
-    }
-
-    @media (max-width: 900px) {
-      .admin-main { grid-template-columns: 1fr; }
-    }
+    :root { --navy:#1a56a0; --blue:#2e6fc4; --mid-blue:#4a90d9; --light-blue:#74b3f0; --ice:#dbeeff; --cream:#f0f6ff; --paper:#f7faff; --text:#0d2340; --muted:#5a7aaa; --red:#c0392b; --red-light:#fdf0ef; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Libre Baskerville',Georgia,serif; background:var(--paper); color:var(--text); min-height:100vh; }
+    header { background:var(--navy); border-bottom:3px solid rgba(255,255,255,0.6); position:sticky; top:0; z-index:100; box-shadow:0 2px 16px rgba(30,70,140,0.2); }
+    .header-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 32px; }
+    .logo-block { display:flex; align-items:center; gap:16px; text-decoration:none; }
+    .logo-seal { width:52px; height:52px; border:2px solid rgba(255,255,255,0.6); border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--blue),var(--navy)); }
+    .logo-seal span { font-family:'IM Fell English',serif; color:#fff; font-size:17px; font-style:italic; }
+    .logo-text .wordmark { font-family:'IM Fell English',serif; font-size:22px; letter-spacing:4px; color:#fff; }
+    .logo-text .subtitle { font-size:9px; letter-spacing:2.5px; color:var(--ice); text-transform:uppercase; font-family:'Source Code Pro',monospace; margin-top:2px; }
+    nav { display:flex; gap:6px; }
+    nav a { color:var(--ice); text-decoration:none; font-family:'Source Code Pro',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; padding:8px 16px; border:1px solid transparent; transition:all 0.2s; }
+    nav a:hover { color:#fff; border-color:rgba(255,255,255,0.6); background:rgba(255,255,255,0.12); }
+    .admin-badge { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:4px 10px; background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.4); }
+    #loginScreen { min-height:calc(100vh - 81px); display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--navy) 0%,#1a4a8a 100%); position:relative; overflow:hidden; }
+    #loginScreen::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(116,179,240,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(116,179,240,0.06) 1px,transparent 1px); background-size:60px 60px; }
+    .login-box { background:#fff; border-top:4px solid var(--navy); padding:52px 48px; width:100%; max-width:420px; position:relative; box-shadow:0 20px 60px rgba(10,30,80,0.3); }
+    .login-icon { font-size:32px; text-align:center; margin-bottom:8px; }
+    .login-title { font-family:'IM Fell English',serif; font-size:28px; font-style:italic; color:var(--navy); text-align:center; margin-bottom:6px; }
+    .login-sub { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted); text-align:center; margin-bottom:36px; }
+    .login-label { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px; }
+    .login-input { width:100%; border:1px solid #ccd6e8; padding:12px 16px; font-family:'Libre Baskerville',serif; font-size:15px; color:var(--text); outline:none; transition:border 0.2s; margin-bottom:20px; letter-spacing:3px; }
+    .login-input:focus { border-color:var(--mid-blue); }
+    .login-input.error { border-color:var(--red); background:var(--red-light); }
+    .login-btn { width:100%; background:var(--navy); color:#fff; border:none; padding:14px; font-family:'Source Code Pro',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
+    .login-btn:hover { background:var(--blue); }
+    .login-error { font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:1px; color:var(--red); text-align:center; margin-top:14px; display:none; }
+    .login-error.show { display:block; }
+    .shake { animation:shake 0.4s ease; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+    #adminPanel { display:none; }
+    .admin-hero { background:var(--navy); padding:48px 32px; position:relative; overflow:hidden; }
+    .admin-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 50%,rgba(74,144,217,0.3) 0%,transparent 60%); }
+    .admin-hero-inner { max-width:1200px; margin:0 auto; position:relative; display:flex; justify-content:space-between; align-items:center; }
+    .admin-hero h1 { font-family:'IM Fell English',serif; font-size:40px; color:#fff; font-style:italic; }
+    .admin-hero p { font-size:13px; color:var(--ice); opacity:0.7; margin-top:6px; }
+    .logout-btn { background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.4); padding:10px 20px; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+    .logout-btn:hover { background:rgba(255,255,255,0.25); }
+    .admin-stats { background:var(--blue); border-bottom:1px solid rgba(116,179,240,0.3); padding:0 32px; }
+    .admin-stats-inner { max-width:1200px; margin:0 auto; display:flex; }
+    .stat-box { padding:20px 40px 20px 0; margin-right:40px; border-right:1px solid rgba(255,255,255,0.1); }
+    .stat-box:last-child { border-right:none; }
+    .stat-box-num { font-family:'IM Fell English',serif; font-size:32px; color:#fff; line-height:1; }
+    .stat-box-label { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--ice); opacity:0.7; margin-top:4px; }
+    .admin-main { max-width:1200px; margin:0 auto; padding:48px 32px; display:grid; grid-template-columns:1fr 380px; gap:48px; }
+    .section-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:14px; border-bottom:2px solid var(--navy); }
+    .section-head h2 { font-family:'IM Fell English',serif; font-size:24px; font-style:italic; color:var(--navy); }
+    .section-label { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+    .papers-table { width:100%; border-collapse:collapse; }
+    .papers-table th { font-family:'Source Code Pro',monospace; font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted); text-align:left; padding:10px 12px; border-bottom:1px solid #dde6f5; background:var(--cream); }
+    .papers-table td { padding:14px 12px; border-bottom:1px solid #eef2f8; font-size:12px; color:var(--text); vertical-align:top; }
+    .papers-table tr:hover td { background:#f0f6ff; }
+    .paper-title-cell { font-family:'IM Fell English',serif; font-size:14px; font-style:italic; color:var(--navy); max-width:240px; }
+    .field-tag { font-family:'Source Code Pro',monospace; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; padding:2px 7px; background:var(--navy); color:#fff; display:inline-block; }
+    .pending-tag { font-family:'Source Code Pro',monospace; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; padding:2px 6px; background:rgba(74,144,217,0.15); color:var(--mid-blue); border:1px solid var(--light-blue); display:inline-block; }
+    .delete-btn { background:none; border:1px solid #e0c8c8; color:var(--red); padding:5px 10px; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+    .delete-btn:hover { background:var(--red); color:#fff; border-color:var(--red); }
+    .approve-btn { background:none; border:1px solid #c8d8c8; color:#2a7a2a; padding:5px 10px; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; margin-right:6px; }
+    .approve-btn:hover { background:#2a7a2a; color:#fff; border-color:#2a7a2a; }
+    .empty-table { text-align:center; padding:48px; color:var(--muted); font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
+    .upload-panel { background:#fff; border:1px solid #dde6f5; border-top:3px solid var(--navy); padding:32px; height:fit-content; }
+    .upload-panel h3 { font-family:'IM Fell English',serif; font-size:22px; font-style:italic; color:var(--navy); margin-bottom:24px; }
+    .form-group { margin-bottom:16px; }
+    .form-label { display:block; font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted); margin-bottom:7px; }
+    .form-input,.form-select,.form-textarea { width:100%; border:1px solid #ccd6e8; padding:9px 12px; font-family:'Libre Baskerville',serif; font-size:13px; color:var(--text); outline:none; transition:border 0.2s; background:#fff; }
+    .form-input:focus,.form-select:focus,.form-textarea:focus { border-color:var(--mid-blue); }
+    .form-textarea { height:80px; resize:vertical; }
+    .file-drop { border:2px dashed #ccd6e8; padding:24px; text-align:center; background:var(--paper); cursor:pointer; transition:all 0.2s; }
+    .file-drop:hover { border-color:var(--mid-blue); background:var(--cream); }
+    .file-drop-text { font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; margin-top:6px; }
+    .submit-btn { width:100%; background:var(--navy); color:#fff; border:none; padding:13px; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; margin-top:8px; }
+    .submit-btn:hover { background:var(--blue); }
+    .toast { position:fixed; bottom:32px; right:32px; background:var(--navy); color:#fff; padding:14px 24px; font-family:'Source Code Pro',monospace; font-size:11px; letter-spacing:1.5px; border-left:4px solid #fff; z-index:2000; transform:translateY(100px); opacity:0; transition:all 0.3s; }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast.error-toast { border-left-color:var(--red); background:#8b1a1a; }
+    .confirm-overlay { position:fixed; inset:0; background:rgba(10,30,80,0.6); z-index:1000; display:none; align-items:center; justify-content:center; }
+    .confirm-overlay.open { display:flex; }
+    .confirm-box { background:#fff; border-top:4px solid var(--red); padding:36px; max-width:380px; width:100%; box-shadow:0 20px 60px rgba(10,30,80,0.3); }
+    .confirm-box h3 { font-family:'IM Fell English',serif; font-size:22px; font-style:italic; color:var(--red); margin-bottom:12px; }
+    .confirm-box p { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:24px; }
+    .confirm-actions { display:flex; gap:12px; }
+    .confirm-yes { flex:1; background:var(--red); color:#fff; border:none; padding:11px; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
+    .confirm-no { flex:1; background:none; color:var(--muted); border:1px solid #ddd; padding:11px; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
+    footer { background:#0d2a5e; border-top:1px solid rgba(116,179,240,0.2); padding:32px; color:var(--muted); font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:1.5px; text-align:center; margin-top:48px; }
+    @media (max-width:900px) { .admin-main { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-inner">
     <a href="index.html" class="logo-block">
@@ -339,7 +114,6 @@
   </div>
 </header>
 
-<!-- LOGIN SCREEN -->
 <div id="loginScreen">
   <div class="login-box" id="loginBox">
     <div class="login-icon">🔐</div>
@@ -352,9 +126,7 @@
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div id="adminPanel">
-
   <div class="admin-hero">
     <div class="admin-hero-inner">
       <div>
@@ -364,92 +136,45 @@
       <button class="logout-btn" onclick="logout()">Log Out</button>
     </div>
   </div>
-
   <div class="admin-stats">
     <div class="admin-stats-inner">
-      <div class="stat-box">
-        <div class="stat-box-num" id="statTotal">0</div>
-        <div class="stat-box-label">Total Papers</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-box-num" id="statNew">0</div>
-        <div class="stat-box-label">Pending Review</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-box-num" id="statFields">0</div>
-        <div class="stat-box-label">Fields Represented</div>
-      </div>
+      <div class="stat-box"><div class="stat-box-num" id="statTotal">0</div><div class="stat-box-label">Total Papers</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="statNew">0</div><div class="stat-box-label">Pending Review</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="statFields">0</div><div class="stat-box-label">Fields Represented</div></div>
     </div>
   </div>
-
   <div class="admin-main">
-
-    <!-- PAPERS TABLE -->
     <div>
       <div class="section-head">
         <h2>All Submitted Papers</h2>
         <span class="section-label" id="tableCount">0 papers</span>
       </div>
       <table class="papers-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Field</th>
-            <th>Term</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Title</th><th>Author</th><th>Field</th><th>Term</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody id="papersTableBody"></tbody>
       </table>
       <div class="empty-table" id="emptyTable" style="display:none;">No papers submitted yet.</div>
     </div>
-
-    <!-- UPLOAD PANEL -->
     <div class="upload-panel">
-      <h3>Upload a Paper</h3>
-      <div class="form-group">
-        <label class="form-label">Paper Title *</label>
-        <input type="text" class="form-input" id="aTitle" placeholder="Full title of the paper"/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Author Name *</label>
-        <input type="text" class="form-input" id="aAuthor" placeholder="Student name and year"/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Field *</label>
+      <h3>Publish a Paper</h3>
+      <div class="form-group"><label class="form-label">Paper Title *</label><input type="text" class="form-input" id="aTitle" placeholder="Full title of the paper"/></div>
+      <div class="form-group"><label class="form-label">Author Name *</label><input type="text" class="form-input" id="aAuthor" placeholder="Student name and year"/></div>
+      <div class="form-group"><label class="form-label">Field *</label>
         <select class="form-select" id="aField">
           <option value="">Select field...</option>
-          <option>Biology</option>
-          <option>Economics</option>
-          <option>Social Sciences</option>
-          <option>Political Science</option>
-          <option>History</option>
-          <option>Psychology</option>
-          <option>Environmental Science</option>
-          <option>Other</option>
+          <option>Biology</option><option>Economics</option><option>Social Sciences</option>
+          <option>Political Science</option><option>History</option><option>Psychology</option>
+          <option>Environmental Science</option><option>Other</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Term</label>
+      <div class="form-group"><label class="form-label">Term</label>
         <select class="form-select" id="aTerm">
-          <option>Spring 2026</option>
-          <option>Winter 2026</option>
-          <option>Fall 2025</option>
-          <option>Spring 2025</option>
-          <option>Winter 2025</option>
-          <option>Fall 2024</option>
+          <option>Spring 2026</option><option>Winter 2026</option><option>Fall 2025</option>
+          <option>Spring 2025</option><option>Winter 2025</option><option>Fall 2024</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Abstract *</label>
-        <textarea class="form-textarea" id="aAbstract" placeholder="2–4 sentence abstract..."></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Pages</label>
-        <input type="text" class="form-input" id="aPages" placeholder="e.g. 14"/>
-      </div>
+      <div class="form-group"><label class="form-label">Abstract *</label><textarea class="form-textarea" id="aAbstract" placeholder="2–4 sentence abstract..."></textarea></div>
+      <div class="form-group"><label class="form-label">Pages</label><input type="text" class="form-input" id="aPages" placeholder="e.g. 14"/></div>
       <div class="form-group">
         <label class="form-label">PDF File</label>
         <div class="file-drop" onclick="document.getElementById('aFile').click()">
@@ -460,16 +185,13 @@
       </div>
       <button class="submit-btn" onclick="adminUpload()">+ Publish Paper to Journal</button>
     </div>
-
   </div>
-
 </div>
 
-<!-- CONFIRM DELETE MODAL -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
     <h3>Delete this paper?</h3>
-    <p>This will permanently remove the paper from the journal. This action cannot be undone.</p>
+    <p>This will permanently remove the paper from the journal. This cannot be undone.</p>
     <div class="confirm-actions">
       <button class="confirm-yes" onclick="confirmDelete()">Yes, Delete</button>
       <button class="confirm-no" onclick="closeConfirm()">Cancel</button>
@@ -477,50 +199,41 @@
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <footer>
-  <span style="color:#ffffff; letter-spacing:4px;">PAPERS</span> &nbsp;·&nbsp; Admin Portal &nbsp;·&nbsp; Restricted Access &nbsp;·&nbsp; Phillips Academy Andover
+  <span style="color:#fff; letter-spacing:4px;">PAPERS</span> &nbsp;·&nbsp; Admin Portal &nbsp;·&nbsp; Restricted Access &nbsp;·&nbsp; Phillips Academy Andover
 </footer>
 
 <script>
-  // ── PASSWORD ──
   const ADMIN_PASSWORD = 'papers2026';
 
-  // ── SEED DATA (same as journal.html) ──
   const seedPapers = [
-    { id: 1, isNew: false, title: "The Effect of Social Media Consumption on Adolescent Political Polarization", author: "Alexandra Chen '26", field: "Political Science", term: "Spring 2025", pages: "18", abstract: "This study examines the correlation between daily social media usage and political attitude divergence among high school students aged 14–18.", filename: null },
-    { id: 2, isNew: false, title: "Microplastic Accumulation in Freshwater Ecosystems: A Meta-Analysis", author: "James Park '26", field: "Biology", term: "Spring 2025", pages: "22", abstract: "A systematic review of 34 peer-reviewed studies examining microplastic concentration levels in North American freshwater habitats.", filename: null },
-    { id: 3, isNew: false, title: "Minimum Wage Increases and Employment Outcomes in Massachusetts Service Industries", author: "Priya Patel '25", field: "Economics", term: "Winter 2025", pages: "15", abstract: "This paper analyzes the labor market effects of Massachusetts' 2023 minimum wage increase on employment rates in the food service and retail sectors.", filename: null },
-    { id: 4, isNew: false, title: "Disparities in STEM Pipeline Access: A Comparative Study of Urban and Rural High Schools", author: "Marcus Williams '25", field: "Social Sciences", term: "Winter 2025", pages: "20", abstract: "Through analysis of AP enrollment data and standardized test performance from 2018–2023, this study investigates structural barriers limiting STEM access for rural students.", filename: null },
-    { id: 5, isNew: false, title: "mRNA Vaccine Technology and Immune Response Duration: A Literature Review", author: "Sophia Liu '25", field: "Biology", term: "Fall 2024", pages: "16", abstract: "This literature review synthesizes current research on the longevity of immune responses elicited by mRNA-based vaccines.", filename: null }
+    { id:1, isNew:false, pending:false, title:"The Effect of Social Media Consumption on Adolescent Political Polarization", author:"Alexandra Chen '26", field:"Political Science", term:"Spring 2025", pages:"18", abstract:"This study examines the correlation between daily social media usage and political attitude divergence among high school students aged 14–18.", filename:null },
+    { id:2, isNew:false, pending:false, title:"Microplastic Accumulation in Freshwater Ecosystems: A Meta-Analysis", author:"James Park '26", field:"Biology", term:"Spring 2025", pages:"22", abstract:"A systematic review of 34 peer-reviewed studies examining microplastic concentration levels in North American freshwater habitats.", filename:null },
+    { id:3, isNew:false, pending:false, title:"Minimum Wage Increases and Employment Outcomes in Massachusetts Service Industries", author:"Priya Patel '25", field:"Economics", term:"Winter 2025", pages:"15", abstract:"This paper analyzes the labor market effects of Massachusetts' 2023 minimum wage increase on employment rates in the food service and retail sectors.", filename:null },
+    { id:4, isNew:false, pending:false, title:"Disparities in STEM Pipeline Access: A Comparative Study of Urban and Rural High Schools", author:"Marcus Williams '25", field:"Social Sciences", term:"Winter 2025", pages:"20", abstract:"Through analysis of AP enrollment data and standardized test performance from 2018–2023, this study investigates structural barriers limiting STEM access for rural students.", filename:null },
+    { id:5, isNew:false, pending:false, title:"mRNA Vaccine Technology and Immune Response Duration: A Literature Review", author:"Sophia Liu '25", field:"Biology", term:"Fall 2024", pages:"16", abstract:"This literature review synthesizes current research on the longevity of immune responses elicited by mRNA-based vaccines.", filename:null }
   ];
 
   let papers = JSON.parse(localStorage.getItem('papers_list') || 'null') || seedPapers;
   let pendingDeleteId = null;
 
-  function savePapers() {
-    localStorage.setItem('papers_list', JSON.stringify(papers));
-  }
+  function savePapers() { localStorage.setItem('papers_list', JSON.stringify(papers)); }
 
-  // ── LOGIN ──
   function tryLogin() {
     const val = document.getElementById('pwInput').value;
     const input = document.getElementById('pwInput');
     const error = document.getElementById('loginError');
-    const box = document.getElementById('loginBox');
-
     if (val === ADMIN_PASSWORD) {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('adminPanel').style.display = 'block';
-      renderTable();
-      updateStats();
+      renderTable(); updateStats();
     } else {
-      input.classList.add('error', 'shake');
+      input.classList.add('error','shake');
       error.classList.add('show');
       input.value = '';
-      setTimeout(() => { input.classList.remove('shake'); }, 400);
+      setTimeout(() => input.classList.remove('shake'), 400);
       setTimeout(() => { input.classList.remove('error'); error.classList.remove('show'); }, 3000);
     }
   }
@@ -531,73 +244,45 @@
     document.getElementById('pwInput').value = '';
   }
 
-  // ── RENDER TABLE ──
   function renderTable() {
     const tbody = document.getElementById('papersTableBody');
     const empty = document.getElementById('emptyTable');
-    document.getElementById('tableCount').textContent = `${papers.length} paper${papers.length !== 1 ? 's' : ''}`;
-
-    if (papers.length === 0) {
-      tbody.innerHTML = '';
-      empty.style.display = 'block';
-      return;
-    }
+    document.getElementById('tableCount').textContent = `${papers.length} paper${papers.length!==1?'s':''}`;
+    if (papers.length === 0) { tbody.innerHTML=''; empty.style.display='block'; return; }
     empty.style.display = 'none';
-
     tbody.innerHTML = papers.map(p => `
       <tr>
-        <td>
-          <div class="paper-title-cell">${p.title}</div>
-        </td>
-        <td style="font-size:11px; color:var(--muted); font-style:italic;">${p.author}</td>
+        <td><div class="paper-title-cell">${p.title}</div></td>
+        <td style="font-size:11px;color:var(--muted);font-style:italic;">${p.author}</td>
         <td><span class="field-tag">${p.field}</span></td>
-        <td style="font-family:'Source Code Pro',monospace; font-size:10px; color:var(--muted);">${p.term}</td>
+        <td style="font-family:'Source Code Pro',monospace;font-size:10px;color:var(--muted);">${p.term}</td>
+        <td>${p.pending ? '<span class="pending-tag">Pending</span>' : '<span style="font-family:Source Code Pro,monospace;font-size:9px;color:#2a7a2a;letter-spacing:1px;">✓ Published</span>'}</td>
         <td>
-          ${p.isNew
-            ? '<span class="new-tag">Pending</span>'
-            : '<span style="font-family:Source Code Pro,monospace;font-size:9px;color:#2a7a2a;letter-spacing:1px;">✓ Published</span>'
-          }
-        </td>
-        <td>
-          ${p.isNew ? `<button class="approve-btn" onclick="approvePaper(${p.id})">Approve</button>` : ''}
+          ${p.pending ? `<button class="approve-btn" onclick="approvePaper(${p.id})">Approve</button>` : ''}
           <button class="delete-btn" onclick="askDelete(${p.id})">Delete</button>
         </td>
-      </tr>
-    `).join('');
+      </tr>`).join('');
   }
 
   function updateStats() {
     document.getElementById('statTotal').textContent = papers.length;
-    document.getElementById('statNew').textContent = papers.filter(p => p.isNew).length;
-    const fields = new Set(papers.map(p => p.field));
-    document.getElementById('statFields').textContent = fields.size;
+    document.getElementById('statNew').textContent = papers.filter(p => p.pending).length;
+    document.getElementById('statFields').textContent = new Set(papers.map(p => p.field)).size;
   }
 
-  // ── APPROVE ──
   function approvePaper(id) {
     const p = papers.find(x => x.id === id);
-    if (p) { p.isNew = false; savePapers(); renderTable(); updateStats(); showToast('Paper approved and published!'); }
+    if (p) { p.isNew = false; p.pending = false; savePapers(); renderTable(); updateStats(); showToast('Paper approved and now live in the journal!'); }
   }
 
-  // ── DELETE ──
-  function askDelete(id) {
-    pendingDeleteId = id;
-    document.getElementById('confirmOverlay').classList.add('open');
-  }
-  function closeConfirm() {
-    pendingDeleteId = null;
-    document.getElementById('confirmOverlay').classList.remove('open');
-  }
+  function askDelete(id) { pendingDeleteId = id; document.getElementById('confirmOverlay').classList.add('open'); }
+  function closeConfirm() { pendingDeleteId = null; document.getElementById('confirmOverlay').classList.remove('open'); }
   function confirmDelete() {
     papers = papers.filter(p => p.id !== pendingDeleteId);
-    savePapers();
-    renderTable();
-    updateStats();
-    closeConfirm();
-    showToast('Paper deleted from journal.', true);
+    savePapers(); renderTable(); updateStats(); closeConfirm();
+    showToast('Paper deleted.', true);
   }
 
-  // ── ADMIN UPLOAD ──
   function handleAdminFile(input) {
     if (input.files[0]) document.getElementById('aFileText').textContent = '📎 ' + input.files[0].name;
   }
@@ -610,33 +295,18 @@
     const abstract = document.getElementById('aAbstract').value.trim();
     const pages = document.getElementById('aPages').value.trim();
     const fileInput = document.getElementById('aFile');
-
     if (!title || !author || !field || !abstract) { showToast('Please fill in all required fields.', true); return; }
-
-    const newPaper = {
-      id: Date.now(), isNew: false, // admin uploads go straight to published
-      title, author, field, term,
-      pages: pages || '—',
-      abstract,
-      filename: fileInput.files[0] ? fileInput.files[0].name : null
-    };
-
-    papers.unshift(newPaper);
-    savePapers();
-    renderTable();
-    updateStats();
+    papers.unshift({ id:Date.now(), isNew:false, pending:false, title, author, field, term, pages:pages||'—', abstract, filename:fileInput.files[0]?fileInput.files[0].name:null });
+    savePapers(); renderTable(); updateStats();
     showToast('Paper published to journal!');
-
-    // Reset form
-    document.getElementById('aTitle').value = '';
-    document.getElementById('aAuthor').value = '';
-    document.getElementById('aField').value = '';
-    document.getElementById('aAbstract').value = '';
-    document.getElementById('aPages').value = '';
-    document.getElementById('aFileText').textContent = 'Click to attach PDF';
+    document.getElementById('aTitle').value='';
+    document.getElementById('aAuthor').value='';
+    document.getElementById('aField').value='';
+    document.getElementById('aAbstract').value='';
+    document.getElementById('aPages').value='';
+    document.getElementById('aFileText').textContent='Click to attach PDF';
   }
 
-  // ── TOAST ──
   function showToast(msg, isError) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -645,10 +315,7 @@
     setTimeout(() => t.classList.remove('show'), 3500);
   }
 
-  // Close confirm on overlay click
-  document.getElementById('confirmOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeConfirm();
-  });
+  document.getElementById('confirmOverlay').addEventListener('click', function(e){ if(e.target===this) closeConfirm(); });
 </script>
 </body>
 </html>
