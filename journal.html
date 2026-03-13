@@ -20,306 +20,96 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Libre Baskerville', Georgia, serif; background: var(--paper); color: var(--text); }
-
-    /* ── HEADER ── */
-    header {
-      background: var(--navy);
-      border-bottom: 3px solid rgba(255,255,255,0.6);
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 16px rgba(30,70,140,0.2);
-    }
-    .header-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 32px;
-    }
+    header { background: var(--navy); border-bottom: 3px solid rgba(255,255,255,0.6); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(30,70,140,0.2); }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; }
     .logo-block { display: flex; align-items: center; gap: 16px; text-decoration: none; }
-    .logo-seal {
-      width: 52px; height: 52px; border: 2px solid rgba(255,255,255,0.6); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--blue), var(--navy));
-    }
-    .logo-seal span { font-family: 'IM Fell English', serif; color: #ffffff; font-size: 17px; font-style: italic; }
+    .logo-seal { width: 52px; height: 52px; border: 2px solid rgba(255,255,255,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--blue), var(--navy)); }
+    .logo-seal span { font-family: 'IM Fell English', serif; color: #fff; font-size: 17px; font-style: italic; }
     .logo-text .wordmark { font-family: 'IM Fell English', serif; font-size: 22px; letter-spacing: 4px; color: #fff; }
     .logo-text .subtitle { font-size: 9px; letter-spacing: 2.5px; color: var(--ice); text-transform: uppercase; font-family: 'Source Code Pro', monospace; margin-top: 2px; }
     nav { display: flex; gap: 6px; }
-    nav a {
-      color: var(--ice); text-decoration: none; font-family: 'Source Code Pro', monospace;
-      font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px;
-      border: 1px solid transparent; transition: all 0.2s;
-    }
-    nav a:hover, nav a.active { color: #fff; border-color: #ffffff; background: rgba(255,255,255,0.12); }
-
-    /* ── PAGE HERO ── */
-    .page-hero {
-      background: var(--navy);
-      padding: 80px 32px 64px;
-      position: relative;
-      overflow: hidden;
-    }
-    .page-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 50%, rgba(74,144,217,0.3) 0%, transparent 60%),
-        linear-gradient(170deg, #1a56a0 0%, #1a4a8a 100%);
-    }
+    nav a { color: var(--ice); text-decoration: none; font-family: 'Source Code Pro', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; border: 1px solid transparent; transition: all 0.2s; }
+    nav a:hover, nav a.active { color: #fff; border-color: #fff; background: rgba(255,255,255,0.12); }
+    .page-hero { background: var(--navy); padding: 80px 32px 64px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(74,144,217,0.3) 0%, transparent 60%), linear-gradient(170deg, #1a56a0 0%, #1a4a8a 100%); }
     .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; }
-    .page-eyebrow {
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 4px;
-      color: #ffffff; text-transform: uppercase; margin-bottom: 20px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .page-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.15); }
-    .page-hero h1 {
-      font-family: 'IM Fell English', serif; font-size: clamp(36px, 5vw, 64px);
-      color: #fff; margin-bottom: 16px; font-style: italic;
-    }
+    .page-eyebrow { font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 4px; color: #fff; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .page-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.3); }
+    .page-hero h1 { font-family: 'IM Fell English', serif; font-size: clamp(36px, 5vw, 64px); color: #fff; margin-bottom: 16px; font-style: italic; }
     .page-hero p { font-size: 15px; color: var(--ice); opacity: 0.75; max-width: 560px; line-height: 1.8; }
-
-    /* ── UPLOAD SECTION ── */
-    .upload-bar {
-      background: var(--blue);
-      border-bottom: 2px solid rgba(116,179,240,0.3);
-      padding: 20px 32px;
-    }
-    .upload-bar-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    }
-    .upload-bar-text {
-      font-family: 'Source Code Pro', monospace; font-size: 11px;
-      letter-spacing: 1.5px; color: var(--ice); text-transform: uppercase;
-    }
-    .btn-upload {
-      background: #ffffff; color: #1a56a0; padding: 10px 24px;
-      font-family: 'Source Code Pro', monospace; font-size: 11px;
-      letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-      border: none; cursor: pointer; transition: all 0.2s;
-    }
+    .upload-bar { background: var(--blue); border-bottom: 2px solid rgba(116,179,240,0.3); padding: 20px 32px; }
+    .upload-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .upload-bar-text { font-family: 'Source Code Pro', monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--ice); text-transform: uppercase; }
+    .btn-upload { background: #fff; color: #1a56a0; padding: 10px 24px; font-family: 'Source Code Pro', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
     .btn-upload:hover { background: #dce8f8; }
-
-    /* ── UPLOAD MODAL ── */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(20,50,120,0.6);
-      z-index: 1000; display: none; align-items: center; justify-content: center;
-      padding: 32px;
-    }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(20,50,120,0.6); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 32px; }
     .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--paper); max-width: 600px; width: 100%;
-      border-top: 4px solid #c8d8f0;
-      box-shadow: 0 20px 60px rgba(30,70,140,0.25);
-    }
-    .modal-header {
-      background: var(--navy); padding: 24px 32px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
+    .modal { background: var(--paper); max-width: 600px; width: 100%; border-top: 4px solid #4a90d9; box-shadow: 0 20px 60px rgba(30,70,140,0.25); }
+    .modal-header { background: var(--navy); padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; }
     .modal-header h3 { font-family: 'IM Fell English', serif; color: #fff; font-size: 22px; font-style: italic; }
-    .modal-close {
-      background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff;
-      width: 32px; height: 32px; cursor: pointer; font-size: 16px;
-      display: flex; align-items: center; justify-content: center;
-    }
+    .modal-close { background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 32px; height: 32px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
     .modal-body { padding: 32px; }
     .form-group { margin-bottom: 20px; }
-    .form-group label {
-      display: block; font-family: 'Source Code Pro', monospace;
-      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 8px;
-    }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; border: 1px solid #ccc; padding: 10px 14px;
-      font-family: 'Libre Baskerville', serif; font-size: 13px;
-      background: #ffffff; color: var(--text);
-      outline: none; transition: border 0.2s;
-    }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: var(--mid-blue);
-    }
+    .form-group label { display: block; font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; border: 1px solid #ccc; padding: 10px 14px; font-family: 'Libre Baskerville', serif; font-size: 13px; background: #fff; color: var(--text); outline: none; transition: border 0.2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--mid-blue); }
     .form-group textarea { height: 80px; resize: vertical; }
-    .file-drop {
-      border: 2px dashed #ccc; padding: 32px; text-align: center;
-      background: #f0f4f8; cursor: pointer; transition: all 0.2s;
-    }
+    .file-drop { border: 2px dashed #ccc; padding: 32px; text-align: center; background: #f0f4f8; cursor: pointer; transition: all 0.2s; }
     .file-drop:hover { border-color: var(--mid-blue); background: #e8f0fb; }
     .file-drop-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.5; }
     .file-drop-text { font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; }
     .file-drop input[type=file] { display: none; }
     .modal-footer { padding: 0 32px 32px; display: flex; gap: 12px; justify-content: flex-end; }
-    .btn-cancel {
-      padding: 10px 20px; border: 1px solid #ccc; background: none;
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      cursor: pointer; color: var(--muted);
-    }
-    .btn-submit {
-      padding: 10px 24px; background: var(--navy); color: #fff; border: none;
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      cursor: pointer; transition: background 0.2s;
-    }
+    .btn-cancel { padding: 10px 20px; border: 1px solid #ccc; background: none; font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; color: var(--muted); }
+    .btn-submit { padding: 10px 24px; background: var(--navy); color: #fff; border: none; font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
     .btn-submit:hover { background: var(--blue); }
-
-    /* ── MAIN LAYOUT ── */
-    .main-layout {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 280px 1fr;
-      gap: 0;
-      padding: 48px 32px;
-    }
-
-    /* ── SIDEBAR ── */
-    .sidebar { border-right: 1px solid #e0d8cc; padding-right: 40px; }
+    .main-layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr; gap: 0; padding: 48px 32px; }
+    .sidebar { border-right: 1px solid #dde6f5; padding-right: 40px; }
     .sidebar-section { margin-bottom: 40px; }
-    .sidebar-label {
-      font-family: 'Source Code Pro', monospace; font-size: 9px;
-      letter-spacing: 3px; text-transform: uppercase; color: #ffffff;
-      border-bottom: 1px solid #e0d8cc; padding-bottom: 8px; margin-bottom: 16px;
-    }
-    .filter-option {
-      display: flex; align-items: center; gap: 10px;
-      padding: 6px 0; cursor: pointer;
-      font-size: 13px; color: var(--text); border: none; background: none; width: 100%;
-      text-align: left; font-family: 'Libre Baskerville', serif;
-    }
+    .sidebar-label { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--navy); border-bottom: 1px solid #dde6f5; padding-bottom: 8px; margin-bottom: 16px; }
+    .filter-option { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; font-size: 13px; color: var(--text); border: none; background: none; width: 100%; text-align: left; font-family: 'Libre Baskerville', serif; }
     .filter-option:hover { color: var(--mid-blue); }
     .filter-option.active { color: var(--mid-blue); font-weight: 700; }
-    .filter-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--ice); flex-shrink: 0;
-    }
+    .filter-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ice); flex-shrink: 0; }
     .filter-option.active .filter-dot { background: var(--mid-blue); }
-    .filter-count {
-      margin-left: auto; font-family: 'Source Code Pro', monospace;
-      font-size: 9px; color: var(--muted);
-    }
-
-    .search-box {
-      width: 100%; border: 1px solid #ccc; padding: 9px 14px;
-      font-family: 'Libre Baskerville', serif; font-size: 12px;
-      outline: none; background: #ffffff; margin-bottom: 24px;
-    }
+    .filter-count { margin-left: auto; font-family: 'Source Code Pro', monospace; font-size: 9px; color: var(--muted); }
+    .search-box { width: 100%; border: 1px solid #ccc; padding: 9px 14px; font-family: 'Libre Baskerville', serif; font-size: 12px; outline: none; background: #fff; margin-bottom: 24px; }
     .search-box:focus { border-color: var(--mid-blue); }
-
-    /* ── PAPERS LIST ── */
     .papers-area { padding-left: 48px; }
-
-    .papers-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 32px; padding-bottom: 16px; border-bottom: 2px solid var(--navy);
-    }
-    .papers-count {
-      font-family: 'Source Code Pro', monospace; font-size: 10px;
-      letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
-    }
-    .papers-sort {
-      display: flex; gap: 8px;
-    }
-    .sort-btn {
-      font-family: 'Source Code Pro', monospace; font-size: 9px;
-      letter-spacing: 2px; text-transform: uppercase; padding: 6px 12px;
-      border: 1px solid #ddd; background: none; cursor: pointer;
-      color: var(--muted); transition: all 0.2s;
-    }
+    .papers-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 2px solid var(--navy); }
+    .papers-count { font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .papers-sort { display: flex; gap: 8px; }
+    .sort-btn { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 6px 12px; border: 1px solid #ddd; background: none; cursor: pointer; color: var(--muted); transition: all 0.2s; }
     .sort-btn.active, .sort-btn:hover { border-color: var(--navy); color: var(--navy); background: var(--ice); }
-
-    .paper-entry {
-      border-bottom: 1px solid #e0d8cc; padding: 28px 0;
-      cursor: pointer; transition: background 0.15s;
-      position: relative;
-    }
+    .paper-entry { border-bottom: 1px solid #dde6f5; padding: 28px 0; transition: background 0.15s; }
     .paper-entry:hover { background: rgba(116,179,240,0.03); }
-
-    .paper-meta-row {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 10px;
-    }
-    .paper-field {
-      font-family: 'Source Code Pro', monospace; font-size: 9px;
-      letter-spacing: 2.5px; text-transform: uppercase; padding: 3px 8px;
-      background: var(--navy); color: #ffffff;
-    }
-    .paper-term {
-      font-family: 'Source Code Pro', monospace; font-size: 9px;
-      letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase;
-    }
-    .paper-new {
-      font-family: 'Source Code Pro', monospace; font-size: 8px;
-      letter-spacing: 2px; text-transform: uppercase; padding: 2px 7px;
-      background: rgba(116,179,240,0.15); color: var(--mid-blue); border: 1px solid var(--light-blue);
-    }
-
-    .paper-title {
-      font-family: 'IM Fell English', serif; font-size: 20px;
-      color: var(--navy); font-style: italic; margin-bottom: 6px;
-      line-height: 1.3;
-    }
-    .paper-title:hover { color: var(--mid-blue); }
-
-    .paper-author {
-      font-size: 12px; color: var(--muted); margin-bottom: 12px;
-      font-style: italic;
-    }
-
-    .paper-abstract {
-      font-size: 13px; line-height: 1.8; color: #444;
-      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .paper-footer {
-      display: flex; align-items: center; gap: 16px;
-      margin-top: 16px;
-    }
-    .paper-link {
-      font-family: 'Source Code Pro', monospace; font-size: 9px;
-      letter-spacing: 2px; text-transform: uppercase; color: var(--mid-blue);
-      text-decoration: none; border-bottom: 1px solid transparent;
-    }
+    .paper-meta-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .paper-field { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; padding: 3px 8px; background: var(--navy); color: #fff; }
+    .paper-term { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; }
+    .paper-new { font-family: 'Source Code Pro', monospace; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; padding: 2px 7px; background: rgba(116,179,240,0.15); color: var(--mid-blue); border: 1px solid var(--light-blue); }
+    .paper-title { font-family: 'IM Fell English', serif; font-size: 20px; color: var(--navy); font-style: italic; margin-bottom: 6px; line-height: 1.3; }
+    .paper-author { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
+    .paper-abstract { font-size: 13px; line-height: 1.8; color: #444; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .paper-footer { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+    .paper-link { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-blue); text-decoration: none; border-bottom: 1px solid transparent; }
     .paper-link:hover { border-bottom-color: var(--mid-blue); }
-    .paper-pages {
-      font-family: 'Source Code Pro', monospace; font-size: 9px;
-      letter-spacing: 1px; color: var(--muted);
-    }
-
-    /* ── NO PAPERS STATE ── */
-    .empty-state {
-      text-align: center; padding: 80px 32px;
-      display: none;
-    }
+    .paper-pages { font-family: 'Source Code Pro', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+    .empty-state { text-align: center; padding: 80px 32px; display: none; }
     .empty-state.visible { display: block; }
     .empty-state-icon { font-size: 48px; opacity: 0.3; margin-bottom: 20px; }
     .empty-state h3 { font-family: 'IM Fell English', serif; font-size: 24px; font-style: italic; color: var(--muted); margin-bottom: 10px; }
     .empty-state p { font-size: 13px; color: var(--muted); }
-
-    /* ── TOAST ── */
-    .toast {
-      position: fixed; bottom: 32px; right: 32px;
-      background: var(--navy); color: #fff; padding: 14px 24px;
-      font-family: 'Source Code Pro', monospace; font-size: 11px; letter-spacing: 1.5px;
-      border-left: 4px solid #c8d8f0; z-index: 2000;
-      transform: translateY(100px); opacity: 0; transition: all 0.3s;
-    }
+    .toast { position: fixed; bottom: 32px; right: 32px; background: var(--navy); color: #fff; padding: 14px 24px; font-family: 'Source Code Pro', monospace; font-size: 11px; letter-spacing: 1.5px; border-left: 4px solid #fff; z-index: 2000; transform: translateY(100px); opacity: 0; transition: all 0.3s; }
     .toast.show { transform: translateY(0); opacity: 1; }
-
-    footer {
-      background: #0d2a5e; border-top: 1px solid rgba(116,179,240,0.2);
-      padding: 48px 32px; color: var(--muted);
-      font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 1.5px;
-    }
+    footer { background: #0d2a5e; border-top: 1px solid rgba(116,179,240,0.2); padding: 48px 32px; color: var(--muted); font-family: 'Source Code Pro', monospace; font-size: 10px; letter-spacing: 1.5px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     footer a { color: var(--ice); text-decoration: none; }
-    footer a:hover { color: #ffffff; }
-
-    @media (max-width: 768px) {
-      .main-layout { grid-template-columns: 1fr; }
-      .sidebar { border-right: none; padding-right: 0; border-bottom: 1px solid #e0d8cc; padding-bottom: 32px; }
-      .papers-area { padding-left: 0; padding-top: 32px; }
-    }
+    footer a:hover { color: #fff; }
+    @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } .sidebar { border-right: none; padding-right: 0; border-bottom: 1px solid #dde6f5; padding-bottom: 32px; } .papers-area { padding-left: 0; padding-top: 32px; } }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-inner">
     <a href="index.html" class="logo-block">
@@ -337,7 +127,6 @@
   </div>
 </header>
 
-<!-- PAGE HERO -->
 <div class="page-hero">
   <div class="page-hero-inner">
     <div class="page-eyebrow">Student Research Archive</div>
@@ -346,15 +135,14 @@
   </div>
 </div>
 
-<!-- UPLOAD BAR -->
 <div class="upload-bar">
   <div class="upload-bar-inner">
     <span class="upload-bar-text">📄 &nbsp; Submit a paper for publication consideration</span>
-    <button class="btn-upload" onclick="openModal()">+ Upload Paper</button>
+    <button class="btn-upload" onclick="openModal()">+ Submit Paper</button>
   </div>
 </div>
 
-<!-- UPLOAD MODAL -->
+<!-- SUBMIT MODAL -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal">
     <div class="modal-header">
@@ -419,71 +207,64 @@
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-      <button class="btn-submit" onclick="submitPaper()">Submit Paper →</button>
+      <button class="btn-submit" onclick="submitPaper()">Submit for Review →</button>
     </div>
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="main-layout">
+<!-- PENDING CONFIRMATION MODAL -->
+<div class="modal-overlay" id="pendingOverlay" style="z-index:1100;">
+  <div class="modal" style="max-width:480px; border-top:4px solid #4a90d9;">
+    <div class="modal-header" style="background:#2e6fc4;">
+      <h3 style="font-family:'IM Fell English',serif; font-size:22px; font-style:italic;">Submission Received!</h3>
+      <button class="modal-close" onclick="closePendingConfirm()" style="border-color:rgba(255,255,255,0.3);">✕</button>
+    </div>
+    <div class="modal-body" style="padding:36px;">
+      <div style="text-align:center; margin-bottom:20px; font-size:40px;">⏳</div>
+      <p style="font-family:'IM Fell English',serif; font-size:20px; font-style:italic; color:#1a56a0; text-align:center; margin-bottom:16px;">Approval Pending</p>
+      <p style="font-size:13px; line-height:1.9; color:#5a7aaa; text-align:center;">Your paper has been submitted and is now awaiting review by the PAPERS editorial board. Once approved, it will appear in the public journal.</p>
+      <div style="margin-top:24px; padding:16px; background:#f0f6ff; border-left:3px solid #4a90d9;">
+        <p style="font-family:'Source Code Pro',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:#5a7aaa;">What happens next</p>
+        <p style="font-size:12px; color:#0d2340; margin-top:8px; line-height:1.8;">The editorial board will review your submission for completeness and quality. This typically takes 3–5 business days.</p>
+      </div>
+    </div>
+    <div class="modal-footer" style="padding:0 36px 32px;">
+      <button onclick="closePendingConfirm()" style="width:100%; background:#1a56a0; color:#fff; border:none; padding:13px; font-family:'Source Code Pro',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer;">Got it →</button>
+    </div>
+  </div>
+</div>
 
-  <!-- SIDEBAR -->
+<div class="main-layout">
   <aside class="sidebar">
     <input type="text" class="search-box" placeholder="Search papers..." id="searchInput" oninput="filterPapers()"/>
-
     <div class="sidebar-section">
       <div class="sidebar-label">Field</div>
-      <button class="filter-option active" onclick="setFilter('field','all', this)">
-        <span class="filter-dot"></span> All Fields <span class="filter-count" id="count-all"></span>
-      </button>
-      <button class="filter-option" onclick="setFilter('field','Biology', this)">
-        <span class="filter-dot"></span> Biology <span class="filter-count" id="count-Biology"></span>
-      </button>
-      <button class="filter-option" onclick="setFilter('field','Economics', this)">
-        <span class="filter-dot"></span> Economics <span class="filter-count" id="count-Economics"></span>
-      </button>
-      <button class="filter-option" onclick="setFilter('field','Social Sciences', this)">
-        <span class="filter-dot"></span> Social Sciences <span class="filter-count" id="count-Social Sciences"></span>
-      </button>
-      <button class="filter-option" onclick="setFilter('field','Political Science', this)">
-        <span class="filter-dot"></span> Political Science <span class="filter-count" id="count-Political Science"></span>
-      </button>
-      <button class="filter-option" onclick="setFilter('field','Other', this)">
-        <span class="filter-dot"></span> Other <span class="filter-count" id="count-Other"></span>
-      </button>
+      <button class="filter-option active" onclick="setFilter('field','all',this)"><span class="filter-dot"></span> All Fields <span class="filter-count" id="count-all"></span></button>
+      <button class="filter-option" onclick="setFilter('field','Biology',this)"><span class="filter-dot"></span> Biology <span class="filter-count" id="count-Biology"></span></button>
+      <button class="filter-option" onclick="setFilter('field','Economics',this)"><span class="filter-dot"></span> Economics <span class="filter-count" id="count-Economics"></span></button>
+      <button class="filter-option" onclick="setFilter('field','Social Sciences',this)"><span class="filter-dot"></span> Social Sciences <span class="filter-count" id="count-Social Sciences"></span></button>
+      <button class="filter-option" onclick="setFilter('field','Political Science',this)"><span class="filter-dot"></span> Political Science <span class="filter-count" id="count-Political Science"></span></button>
+      <button class="filter-option" onclick="setFilter('field','Other',this)"><span class="filter-dot"></span> Other <span class="filter-count" id="count-Other"></span></button>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-label">Term</div>
-      <button class="filter-option" onclick="setFilter('term','all', this)">
-        <span class="filter-dot"></span> All Terms
-      </button>
-      <button class="filter-option" onclick="setFilter('term','Fall 2024', this)">
-        <span class="filter-dot"></span> Fall 2024
-      </button>
-      <button class="filter-option" onclick="setFilter('term','Winter 2025', this)">
-        <span class="filter-dot"></span> Winter 2025
-      </button>
-      <button class="filter-option" onclick="setFilter('term','Spring 2025', this)">
-        <span class="filter-dot"></span> Spring 2025
-      </button>
-      <button class="filter-option" onclick="setFilter('term','Spring 2026', this)">
-        <span class="filter-dot"></span> Spring 2026
-      </button>
+      <button class="filter-option" onclick="setFilter('term','all',this)"><span class="filter-dot"></span> All Terms</button>
+      <button class="filter-option" onclick="setFilter('term','Fall 2024',this)"><span class="filter-dot"></span> Fall 2024</button>
+      <button class="filter-option" onclick="setFilter('term','Winter 2025',this)"><span class="filter-dot"></span> Winter 2025</button>
+      <button class="filter-option" onclick="setFilter('term','Spring 2025',this)"><span class="filter-dot"></span> Spring 2025</button>
+      <button class="filter-option" onclick="setFilter('term','Spring 2026',this)"><span class="filter-dot"></span> Spring 2026</button>
     </div>
   </aside>
 
-  <!-- PAPERS LIST -->
   <div class="papers-area">
     <div class="papers-header">
       <span class="papers-count" id="papersCountLabel">Loading papers...</span>
       <div class="papers-sort">
-        <button class="sort-btn active" onclick="sortPapers('newest', this)">Newest</button>
-        <button class="sort-btn" onclick="sortPapers('title', this)">A–Z</button>
-        <button class="sort-btn" onclick="sortPapers('field', this)">By Field</button>
+        <button class="sort-btn active" onclick="sortPapers('newest',this)">Newest</button>
+        <button class="sort-btn" onclick="sortPapers('title',this)">A–Z</button>
+        <button class="sort-btn" onclick="sortPapers('field',this)">By Field</button>
       </div>
     </div>
-
     <div id="papersList"></div>
     <div class="empty-state" id="emptyState">
       <div class="empty-state-icon">📄</div>
@@ -493,88 +274,37 @@
   </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">Paper submitted successfully!</div>
+<div class="toast" id="toast"></div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div><span style="color:#ffffff; letter-spacing:4px;">PAPERS</span> &nbsp;·&nbsp; Phillips Academy Andover &nbsp;·&nbsp; papers@andover.edu</div>
+    <div><span style="color:#fff; letter-spacing:4px;">PAPERS</span> &nbsp;·&nbsp; Phillips Academy Andover &nbsp;·&nbsp; papers@andover.edu</div>
     <div>© 2025 Phillips Academy Papers Exploration and Research Society</div>
   </div>
 </footer>
 
 <script>
-  // ── SEED DATA ──
   const seedPapers = [
-    {
-      id: 1, isNew: true,
-      title: "The Effect of Social Media Consumption on Adolescent Political Polarization",
-      author: "Alexandra Chen '26",
-      field: "Political Science",
-      term: "Spring 2025",
-      pages: "18",
-      abstract: "This study examines the correlation between daily social media usage and political attitude divergence among high school students aged 14–18, drawing on survey data from 200 participants across five schools. Using ordinal logistic regression, results suggest a statistically significant relationship between platform-specific usage patterns and ideological entrenchment, particularly on short-form video platforms.",
-      filename: null
-    },
-    {
-      id: 2, isNew: true,
-      title: "Microplastic Accumulation in Freshwater Ecosystems: A Meta-Analysis",
-      author: "James Park '26",
-      field: "Biology",
-      term: "Spring 2025",
-      pages: "22",
-      abstract: "A systematic review of 34 peer-reviewed studies examining microplastic concentration levels in North American freshwater habitats, with implications for aquatic biodiversity and human health. Findings indicate a 340% increase in median microplastic density across sampled rivers from 2010 to 2023, with polyethylene terephthalate (PET) comprising the majority of detected particles.",
-      filename: null
-    },
-    {
-      id: 3, isNew: false,
-      title: "Minimum Wage Increases and Employment Outcomes in Massachusetts Service Industries",
-      author: "Priya Patel '25",
-      field: "Economics",
-      term: "Winter 2025",
-      pages: "15",
-      abstract: "This paper analyzes the labor market effects of Massachusetts' 2023 minimum wage increase on employment rates in the food service and retail sectors. Utilizing a difference-in-differences approach with New Hampshire as the control group, the study finds no significant negative employment effects in the short term, with potential positive spillover effects on consumer spending.",
-      filename: null
-    },
-    {
-      id: 4, isNew: false,
-      title: "Disparities in STEM Pipeline Access: A Comparative Study of Urban and Rural High Schools",
-      author: "Marcus Williams '25",
-      field: "Social Sciences",
-      term: "Winter 2025",
-      pages: "20",
-      abstract: "Through analysis of AP enrollment data and standardized test performance from 2018–2023, this study investigates the structural barriers that disproportionately limit STEM pipeline access for students in rural school districts. Qualitative interviews with 40 students and 15 educators supplement quantitative findings, revealing resource allocation and teacher retention as primary factors.",
-      filename: null
-    },
-    {
-      id: 5, isNew: false,
-      title: "mRNA Vaccine Technology and Immune Response Duration: A Literature Review",
-      author: "Sophia Liu '25",
-      field: "Biology",
-      term: "Fall 2024",
-      pages: "16",
-      abstract: "This literature review synthesizes current research on the longevity of immune responses elicited by mRNA-based vaccines, focusing on the COVID-19 context but drawing broader implications for vaccine platform development. Analysis of 28 clinical studies reveals significant heterogeneity in antibody titer durability, with cellular immunity metrics showing greater persistence.",
-      filename: null
-    }
+    { id:1, isNew:false, pending:false, title:"The Effect of Social Media Consumption on Adolescent Political Polarization", author:"Alexandra Chen '26", field:"Political Science", term:"Spring 2025", pages:"18", abstract:"This study examines the correlation between daily social media usage and political attitude divergence among high school students aged 14–18, drawing on survey data from 200 participants across five schools. Using ordinal logistic regression, results suggest a statistically significant relationship between platform-specific usage patterns and ideological entrenchment, particularly on short-form video platforms.", filename:null },
+    { id:2, isNew:false, pending:false, title:"Microplastic Accumulation in Freshwater Ecosystems: A Meta-Analysis", author:"James Park '26", field:"Biology", term:"Spring 2025", pages:"22", abstract:"A systematic review of 34 peer-reviewed studies examining microplastic concentration levels in North American freshwater habitats, with implications for aquatic biodiversity and human health. Findings indicate a 340% increase in median microplastic density across sampled rivers from 2010 to 2023.", filename:null },
+    { id:3, isNew:false, pending:false, title:"Minimum Wage Increases and Employment Outcomes in Massachusetts Service Industries", author:"Priya Patel '25", field:"Economics", term:"Winter 2025", pages:"15", abstract:"This paper analyzes the labor market effects of Massachusetts' 2023 minimum wage increase on employment rates in the food service and retail sectors. The study finds no significant negative employment effects in the short term.", filename:null },
+    { id:4, isNew:false, pending:false, title:"Disparities in STEM Pipeline Access: A Comparative Study of Urban and Rural High Schools", author:"Marcus Williams '25", field:"Social Sciences", term:"Winter 2025", pages:"20", abstract:"Through analysis of AP enrollment data and standardized test performance from 2018–2023, this study investigates the structural barriers that disproportionately limit STEM pipeline access for students in rural school districts.", filename:null },
+    { id:5, isNew:false, pending:false, title:"mRNA Vaccine Technology and Immune Response Duration: A Literature Review", author:"Sophia Liu '25", field:"Biology", term:"Fall 2024", pages:"16", abstract:"This literature review synthesizes current research on the longevity of immune responses elicited by mRNA-based vaccines, drawing broader implications for vaccine platform development.", filename:null }
   ];
 
   let papers = JSON.parse(localStorage.getItem('papers_list') || 'null') || seedPapers;
-  let currentFilter = { field: 'all', term: 'all' };
+  let currentFilter = { field:'all', term:'all' };
   let currentSort = 'newest';
   let searchQuery = '';
 
-  function savePapers() {
-    localStorage.setItem('papers_list', JSON.stringify(papers));
-  }
-
+  function savePapers() { localStorage.setItem('papers_list', JSON.stringify(papers)); }
   function openModal() { document.getElementById('uploadModal').classList.add('open'); }
   function closeModal() { document.getElementById('uploadModal').classList.remove('open'); }
+  function showPendingConfirm() { document.getElementById('pendingOverlay').classList.add('open'); }
+  function closePendingConfirm() { document.getElementById('pendingOverlay').classList.remove('open'); }
 
   function handleFile(input) {
-    if (input.files[0]) {
-      document.getElementById('fileDropText').textContent = '📎 ' + input.files[0].name;
-    }
+    if (input.files[0]) document.getElementById('fileDropText').textContent = '📎 ' + input.files[0].name;
   }
 
   function submitPaper() {
@@ -585,43 +315,24 @@
     const abstract = document.getElementById('abstractInput').value.trim();
     const pages = document.getElementById('pagesInput').value.trim();
     const fileInput = document.getElementById('fileInput');
-
-    if (!title || !author || !field || !abstract) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-
-    const newPaper = {
-      id: Date.now(),
-      isNew: true,
-      title, author, field,
-      term: term || 'Spring 2026',
-      pages: pages || '—',
-      abstract,
-      filename: fileInput.files[0] ? fileInput.files[0].name : null
-    };
-
+    if (!title || !author || !field || !abstract) { alert('Please fill in all required fields.'); return; }
+    const newPaper = { id:Date.now(), isNew:true, pending:true, title, author, field, term:term||'Spring 2026', pages:pages||'—', abstract, filename:fileInput.files[0]?fileInput.files[0].name:null };
     papers.unshift(newPaper);
     savePapers();
     closeModal();
-    renderPapers();
-    showToast('Paper submitted — thank you!');
-
-    // Reset form
-    document.getElementById('titleInput').value = '';
-    document.getElementById('authorInput').value = '';
-    document.getElementById('fieldInput').value = '';
-    document.getElementById('termInput').value = '';
-    document.getElementById('abstractInput').value = '';
-    document.getElementById('pagesInput').value = '';
-    document.getElementById('fileDropText').textContent = 'Click to select PDF file';
+    showPendingConfirm();
+    document.getElementById('titleInput').value='';
+    document.getElementById('authorInput').value='';
+    document.getElementById('fieldInput').value='';
+    document.getElementById('termInput').value='';
+    document.getElementById('abstractInput').value='';
+    document.getElementById('pagesInput').value='';
+    document.getElementById('fileDropText').textContent='Click to select PDF file';
   }
 
   function setFilter(type, value, el) {
     currentFilter[type] = value;
-    // Update active state in sidebar group
-    const group = el.parentElement;
-    group.querySelectorAll('.filter-option').forEach(b => b.classList.remove('active'));
+    el.parentElement.querySelectorAll('.filter-option').forEach(b => b.classList.remove('active'));
     el.classList.add('active');
     renderPapers();
   }
@@ -633,13 +344,11 @@
     renderPapers();
   }
 
-  function filterPapers() {
-    searchQuery = document.getElementById('searchInput').value.toLowerCase();
-    renderPapers();
-  }
+  function filterPapers() { searchQuery = document.getElementById('searchInput').value.toLowerCase(); renderPapers(); }
 
   function getFilteredPapers() {
     return papers.filter(p => {
+      if (p.pending) return false;
       const matchField = currentFilter.field === 'all' || p.field === currentFilter.field;
       const matchTerm = currentFilter.term === 'all' || p.term === currentFilter.term;
       const q = searchQuery;
@@ -650,33 +359,17 @@
 
   function renderPapers() {
     let filtered = getFilteredPapers();
-
-    // Sort
     if (currentSort === 'title') filtered.sort((a,b) => a.title.localeCompare(b.title));
     else if (currentSort === 'field') filtered.sort((a,b) => a.field.localeCompare(b.field));
-    // 'newest' = default array order (already newest first)
-
-    // Update counts
+    const approvedPapers = papers.filter(p => !p.pending);
     const fields = ['Biology','Economics','Social Sciences','Political Science','Other'];
-    document.getElementById('count-all').textContent = papers.length;
-    fields.forEach(f => {
-      const el = document.getElementById('count-' + f);
-      if (el) el.textContent = papers.filter(p => p.field === f || (f === 'Other' && !['Biology','Economics','Social Sciences','Political Science'].includes(p.field))).length;
-    });
-
+    document.getElementById('count-all').textContent = approvedPapers.length;
+    fields.forEach(f => { const el = document.getElementById('count-'+f); if(el) el.textContent = approvedPapers.filter(p => p.field===f||(f==='Other'&&!['Biology','Economics','Social Sciences','Political Science'].includes(p.field))).length; });
     const list = document.getElementById('papersList');
     const empty = document.getElementById('emptyState');
-    const countLabel = document.getElementById('papersCountLabel');
-
-    countLabel.textContent = `${filtered.length} paper${filtered.length !== 1 ? 's' : ''} found`;
-
-    if (filtered.length === 0) {
-      list.innerHTML = '';
-      empty.classList.add('visible');
-      return;
-    }
+    document.getElementById('papersCountLabel').textContent = `${filtered.length} paper${filtered.length!==1?'s':''} found`;
+    if (filtered.length === 0) { list.innerHTML=''; empty.classList.add('visible'); return; }
     empty.classList.remove('visible');
-
     list.innerHTML = filtered.map(p => `
       <div class="paper-entry">
         <div class="paper-meta-row">
@@ -688,24 +381,14 @@
         <div class="paper-author">by ${p.author}</div>
         <div class="paper-abstract">${p.abstract}</div>
         <div class="paper-footer">
-          ${p.filename ? `<a class="paper-link" href="#" onclick="alert('Paper: ${p.filename.replace(/'/g,"\\'")}')">📎 View PDF</a>` : '<span class="paper-pages" style="color:#aaa;font-style:italic;font-size:11px;font-family:serif">No PDF attached</span>'}
-          ${p.pages !== '—' ? `<span class="paper-pages">${p.pages} pp.</span>` : ''}
+          ${p.filename ? `<a class="paper-link" href="#">📎 View PDF</a>` : '<span class="paper-pages" style="color:#aaa;font-style:italic;font-size:11px;font-family:serif">No PDF attached</span>'}
+          ${p.pages!=='—' ? `<span class="paper-pages">${p.pages} pp.</span>` : ''}
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   }
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3500);
-  }
-
-  // Close modal on overlay click
-  document.getElementById('uploadModal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-  });
+  document.getElementById('uploadModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+  document.getElementById('pendingOverlay').addEventListener('click', function(e){ if(e.target===this) closePendingConfirm(); });
 
   renderPapers();
 </script>
